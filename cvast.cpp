@@ -4,15 +4,14 @@
 
 #include "cvast.h"
 
-CVast::CVast (char* xml) : xml(xml), vastNode(NULL) {
-    this->parse();
-}
+CVast::CVast (char* xml) : xml(xml) {}
 
 void CVast::parse () {
     // character type defaults to char
     this->doc.parse<0>(this->xml);
     rapidxml::xml_node<> *node = doc.first_node();
-    this->vastNode = Vast4::vast(node);
+
+    this->vastNode.init(node);
 }
 
 //void CVast::walk(const rapidxml::xml_node<>* node, int indent = 0) {

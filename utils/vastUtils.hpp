@@ -4,6 +4,7 @@
 
 #ifndef CVAST_VASTUTILS_HPP
 #define CVAST_VASTUTILS_HPP
+
 using namespace std;
 
 class VastUtils{
@@ -15,15 +16,26 @@ public:
             string name = a->name();
             string value = a->value();
             VastUtils::toLowerCase(name);
-            attributes.insert(name, value);
+            attributes.insert(make_pair(name, value));
         }
 
         return attributes;
     }
 
-    static double castStringToFloat(string toCast){
+    static double castStringToDbl(string toCast){
         char *pEnd;
         return strtod(toCast.c_str(), &pEnd);
+    }
+
+    static unsigned short castStringToShort(string toCast) {
+        int i = stoi(toCast.c_str());
+
+        if (i >= numeric_limits<short>::min() && i <= numeric_limits<short>::max()) {
+            return i;
+        }
+        else {
+            throw range_error("Invalid integer " + to_string(i) + " for short conversion");
+        }
     }
 
     static void toLowerCase (string& str) {

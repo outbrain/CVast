@@ -1,0 +1,2 @@
+- fix holder linking
+- add enable_shared_from_this to datatypes structs

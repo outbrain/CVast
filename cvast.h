@@ -12,10 +12,15 @@
 #include <tuple>
 #include <memory>
 #include <algorithm>
+#include <limits>
+#include <stdexcept>
+#include <sstream>
 #include "rapidxml/rapidxml.hpp"
 #include "utils/vastUtils.hpp"
-#include "datatypes/vast4/datastruct/vast.hpp"
+#include "datatypes/vast4/nodeTypes.hpp"
 #include "datatypes/vast4/genericNode.hpp"
+#include "datatypes/vast4/holder.hpp"
+#include "datatypes/vast4/datastruct/vast.hpp"
 
 using namespace std;
 
@@ -24,7 +29,7 @@ class CVast {
 public:
     explicit CVast(char* xml);
     void parse();
-    Vast4::vast getVastNode();
+    //Vast4::vast getVastNode();
 
 private:
     char* xml;

@@ -17,39 +17,72 @@ namespace Vast4 {
     private:
         string path = "vast";
         rapidxml::xml_node<> *node;
+        map<string, string> attributes;
+        int childs[2] = { holder.nodeTypes.nodeTags["AD"], holder.nodeTypes.nodeTags["ERROR"] };
 
+        void setAttributes() {
+            this->attributes = VastUtils::getAttributesMap(this->node);
 
-        void setAttributes(){
-            map<string, string> attributes = VastUtils::getAttributesMap(this->node);
-
-            if (attributes.find("version") != attributes.end()) {
-                this->attrs.version = VastUtils::castStringToFloat(attributes["version"]);
+            if (this->attributes.find("version") != this->attributes.end()) {
+                this->attrs.version = VastUtils::castStringToDbl(this->attributes["version"]);
             }
         }
 
         void createChildren() {
-            rapidxml::xml_node<> *children =  this->node->first_node();
-            rapidxml::xml_node<> *sibling = children;
-            while(sibling != NULL){
-                //handle current sibling
-                size_t counter = ads.size();
-                string adPath = this->path + "/ad" + to_string(counter);
+            rapidxml::xml_node<> *sibling = this->node->first_node();
 
-                this->ads.push_back(ad(sibling, adPath));
-                sibling = children->next_sibling();
+            while(sibling != NULL){
+                string name = sibling->name();
+                VastUtils::toUpperCase(name);
+                int *isChild = find(begin(this->childs), end(this->childs), holder.nodeTypes.nodeTags[name]);
+
+                if (isChild != end(this->childs)) {
+                    size_t counter = ads.size();
+
+                    switch (holder.nodeTypes.nodeTags[name]) {
+                        case V4T::AD: {
+                            string adPath = this->path + "/ad" + to_string(counter);
+
+                            ad current;
+                            current.init(sibling, adPath);
+
+                            this->ads.push_back(current);
+                        }
+                        case V4T::ERROR: {
+                            string errorPath = this->path + "/error" + to_string(counter);
+
+                            error current;
+                            current.init(sibling, errorPath);
+
+                            this->errors.push_back(current);
+                        }
+                    }
+
+                    sibling = sibling->next_sibling();
+                } else {
+                    stringstream err;
+
+                    err << "Invalid tagName " << sibling->name() << " in element " << this->node->name();
+                    throw invalid_argument(err.str());
+                }
             }
         }
 
         void registerNode() {
-
+            // std::enable_shared_from_this<vast>
+//            shared_ptr<Vast4::vast> ptr = make_shared<Vast4::vast>(this);
+//            GenericNode<Vast4::vast> gen(ptr, this->value, this->attributes);
+//
+//            holder.paths.insert(make_pair(this->path, make_shared<GenericNode<vast>>(gen)));
         }
 
     public:
         vastAttrs attrs;
-        std::vector<Vast4::error> error;
-        std::vector<Vast4::ad> ads;
+        vector<Vast4::error> errors;
+        vector<Vast4::ad> ads;
+        string value;
 
-        vast(rapidxml::xml_node<> *node){
+        void init(rapidxml::xml_node<> *node) {
             const rapidxml::node_type t = node->type();
 
             if (rapidxml::node_element == t) {
@@ -58,10 +91,6 @@ namespace Vast4 {
                 this->createChildren();
                 this->registerNode();
             }
-        }
-
-        ~vast(){
-            this->node = nullptr;
         }
     };
 
