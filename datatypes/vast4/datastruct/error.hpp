@@ -6,7 +6,7 @@
 #define CVAST_ERROR_HPP
 
 namespace Vast4 {
-    struct error {
+    struct Error {
     private:
         string path;
         rapidxml::xml_node<> *node;

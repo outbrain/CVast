@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_executable(Cvast
         rapidxml/rapidxml.hpp
+        datatypes/vast4/holder.hpp
         datatypes/vast4/datastruct/impression.hpp
         datatypes/vast4/datastruct/adTitle.hpp
         datatypes/vast4/datastruct/adSystem.hpp
@@ -14,8 +15,8 @@ add_executable(Cvast
         datatypes/vast4/datastruct/vast.hpp
         datatypes/vast4/nodeTypes.hpp
         datatypes/vast4/genericNode.hpp
-        datatypes/vast4/holder.hpp
         utils/vastUtils.hpp
+        includes.h
         cvast.cpp
         cvast.h
         main.cpp)

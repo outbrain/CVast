@@ -6,6 +6,7 @@
 #define CVAST_CVAST_H
 
 #include <string>
+#include <cstring>
 #include <vector>
 #include <map>
 #include <functional>
@@ -17,9 +18,6 @@
 #include <sstream>
 #include "rapidxml/rapidxml.hpp"
 #include "utils/vastUtils.hpp"
-#include "datatypes/vast4/nodeTypes.hpp"
-#include "datatypes/vast4/genericNode.hpp"
-#include "datatypes/vast4/holder.hpp"
 #include "datatypes/vast4/datastruct/vast.hpp"
 
 using namespace std;
@@ -27,14 +25,15 @@ using namespace std;
 class CVast {
 
 public:
-    explicit CVast(char* xml);
+    explicit CVast(std::string& xml);
     void parse();
     //Vast4::vast getVastNode();
 
 private:
-    char* xml;
+    string& xml;
+    vector<char> writableXML;
     rapidxml::xml_document<> doc;
-    Vast4::vast vastNode;
+    Vast4::Vast vastNode;
 };
 
 

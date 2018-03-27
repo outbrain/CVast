@@ -5,11 +5,17 @@
 #ifndef CVAST_HOLDER_HPP
 #define CVAST_HOLDER_HPP
 
+#include <string>
+#include <map>
+#include <memory>
+#include "nodeTypes.hpp"
+#include "genericNode.hpp"
+
 namespace Vast4 {
-    extern struct Holder {
-        map<string, std::shared_ptr<Generic>> paths;
+    struct Holder {
+        std::map<std::string, std::shared_ptr<Generic>> paths;
         V4T nodeTypes = V4T();
-    } holder;
+    };
 }
 
 #endif //CVAST_HOLDER_HPP

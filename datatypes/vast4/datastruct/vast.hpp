@@ -5,15 +5,19 @@
 #ifndef CVAST_VAST_HPP
 #define CVAST_VAST_HPP
 
+#include "../holder.hpp"
 #include "ad.hpp"
 #include "error.hpp"
 
+extern struct Vast4::Holder holder;
+
 namespace Vast4 {
-    struct vastAttrs {
+
+    struct VastAttrs {
         double version;
     };
 
-    struct vast {
+    struct Vast : std::enable_shared_from_this<Vast> {
     private:
         string path = "vast";
         rapidxml::xml_node<> *node;
@@ -43,18 +47,20 @@ namespace Vast4 {
                         case V4T::AD: {
                             string adPath = this->path + "/ad" + to_string(counter);
 
-                            ad current;
+                            Ad current;
                             current.init(sibling, adPath);
 
                             this->ads.push_back(current);
+                            break;
                         }
                         case V4T::ERROR: {
                             string errorPath = this->path + "/error" + to_string(counter);
 
-                            error current;
+                            Error current;
                             current.init(sibling, errorPath);
 
                             this->errors.push_back(current);
+                            break;
                         }
                     }
 
@@ -70,16 +76,16 @@ namespace Vast4 {
 
         void registerNode() {
             // std::enable_shared_from_this<vast>
-//            shared_ptr<Vast4::vast> ptr = make_shared<Vast4::vast>(this);
-//            GenericNode<Vast4::vast> gen(ptr, this->value, this->attributes);
+//            shared_ptr<Vast> ptr = shared_from_this();
+//            GenericNode<Vast> gen(ptr, this->value, this->attributes);
 //
-//            holder.paths.insert(make_pair(this->path, make_shared<GenericNode<vast>>(gen)));
+//            holder.paths.insert(make_pair(this->path, make_shared<GenericNode<Vast>>(gen)));
         }
 
     public:
-        vastAttrs attrs;
-        vector<Vast4::error> errors;
-        vector<Vast4::ad> ads;
+        VastAttrs attrs;
+        vector<Vast4::Error> errors;
+        vector<Vast4::Ad> ads;
         string value;
 
         void init(rapidxml::xml_node<> *node) {

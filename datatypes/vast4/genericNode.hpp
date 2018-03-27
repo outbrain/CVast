@@ -6,6 +6,8 @@
 #ifndef CVAST_GENERICNODE_HPP
 #define CVAST_GENERICNODE_HPP
 
+using namespace std;
+
 namespace Vast4 {
     struct Generic {};
     template <typename T>

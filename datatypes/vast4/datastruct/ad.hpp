@@ -6,13 +6,14 @@
 #define CVAST_AD_HPP
 
 namespace Vast4 {
-    struct adAttrs {
-        std::string id;
+
+    struct AdAttrs {
+        string id;
         unsigned short sequence;
         bool conditionalAd;
     };
 
-    struct ad {
+    struct Ad {
     private:
         string path;
         rapidxml::xml_node<> *node;
@@ -46,7 +47,7 @@ namespace Vast4 {
         }
 
     public:
-        adAttrs attrs;
+        AdAttrs attrs;
         string value;
 
         void init(rapidxml::xml_node<> *node, string adPath) {

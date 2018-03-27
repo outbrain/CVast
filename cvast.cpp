@@ -1,14 +1,22 @@
 //
 // Created by Jonathan Sellam on 23/03/2018.
 //
+#include "datatypes/vast4/holder.hpp"
+
+Vast4::Holder holder;
 
 #include "cvast.h"
 
-CVast::CVast (char* xml) : xml(xml) {}
+CVast::CVast (std::string& xml) : xml(xml) {
+    std::vector<char> writable(this->xml.begin(), this->xml.end());
+    writable.push_back('\0');
+
+    this->writableXML = writable;
+}
 
 void CVast::parse () {
     // character type defaults to char
-    this->doc.parse<0>(this->xml);
+    this->doc.parse<rapidxml::parse_trim_whitespace>(&this->writableXML[0]);
     rapidxml::xml_node<> *node = doc.first_node();
 
     this->vastNode.init(node);
