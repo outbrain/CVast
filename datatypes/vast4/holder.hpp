@@ -14,6 +14,7 @@
 namespace Vast4 {
     struct Holder {
         std::map<std::string, std::shared_ptr<Generic>> paths;
+        std::map<std::string, NodeData> dataPaths;
         V4T nodeTypes = V4T();
     };
 }

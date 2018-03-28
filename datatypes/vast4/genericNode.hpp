@@ -9,14 +9,17 @@
 using namespace std;
 
 namespace Vast4 {
-    struct Generic {};
+    struct Generic {
+        virtual ~Generic() = default;
+    };
     template <typename T>
     struct GenericNode : Generic {
-        GenericNode (shared_ptr<T> node, string& val, map<string, string>& attrs) : elm(node), value(val), attributes(attrs) {}
-        shared_ptr<T> elm;
-        string& value;
-        map<string, string>& attributes;
-
+        GenericNode (std::function<T*()> node) : elm(node) {}
+        std::function<T*()> elm;
+    };
+    struct NodeData {
+        std::string& value;
+        std::map<std::string, std::tuple<std::string, std::string&>> attrs;
     };
 }
 

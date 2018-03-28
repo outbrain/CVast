@@ -7,6 +7,9 @@ Vast4::Holder holder;
 
 #include "cvast.h"
 
+using namespace Vast4;
+using namespace std;
+
 CVast::CVast (std::string& xml) : xml(xml) {
     std::vector<char> writable(this->xml.begin(), this->xml.end());
     writable.push_back('\0');
@@ -15,11 +18,17 @@ CVast::CVast (std::string& xml) : xml(xml) {
 }
 
 void CVast::parse () {
-    // character type defaults to char
     this->doc.parse<rapidxml::parse_trim_whitespace>(&this->writableXML[0]);
     rapidxml::xml_node<> *node = doc.first_node();
 
     this->vastNode.init(node);
+
+    printf("Version from struct %f\n", this->vastNode.attrs.version);
+
+    shared_ptr<GenericNode<Vast>> gen = dynamic_pointer_cast<GenericNode<Vast>>(holder.paths["vast"]);
+    Vast4::Vast* vast = gen->elm();
+
+    printf("Version from reflection: %f", vast->attrs.version);
 }
 
 //void CVast::walk(const rapidxml::xml_node<>* node, int indent = 0) {

@@ -17,7 +17,7 @@ namespace Vast4 {
         double version;
     };
 
-    struct Vast : std::enable_shared_from_this<Vast> {
+    struct Vast {
     private:
         string path = "vast";
         rapidxml::xml_node<> *node;
@@ -75,11 +75,14 @@ namespace Vast4 {
         }
 
         void registerNode() {
-            // std::enable_shared_from_this<vast>
-//            shared_ptr<Vast> ptr = shared_from_this();
-//            GenericNode<Vast> gen(ptr, this->value, this->attributes);
-//
-//            holder.paths.insert(make_pair(this->path, make_shared<GenericNode<Vast>>(gen)));
+            function<Vast*()> ptr = std::bind(&Vast::get, this);
+            GenericNode<Vast> gen(ptr);
+
+            holder.paths.insert(make_pair(this->path, make_shared<GenericNode<Vast>>(gen)));
+        }
+
+        Vast* get () {
+            return this;
         }
 
     public:

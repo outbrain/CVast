@@ -5,6 +5,10 @@
 #ifndef CVAST_AD_HPP
 #define CVAST_AD_HPP
 
+#include "../holder.hpp"
+
+extern struct Vast4::Holder holder;
+
 namespace Vast4 {
 
     struct AdAttrs {
@@ -40,10 +44,14 @@ namespace Vast4 {
         }
 
         void registerNode() {
-//            shared_ptr<ad> ptr = make_shared<ad>(this);
-//            GenericNode<ad> gen(ptr, this->value, this->attributes);
-//
-//            nodePaths.paths.insert(make_pair(this->path, make_shared<GenericNode<ad>>(gen)));
+            function<Ad*()> ptr = std::bind(&Ad::get, this);
+            GenericNode<Ad> gen(ptr);
+
+            holder.paths.insert(make_pair(this->path, make_shared<GenericNode<Ad>>(gen)));
+        }
+
+        Ad* get () {
+            return this;
         }
 
     public:
