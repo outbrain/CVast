@@ -18,8 +18,9 @@ namespace Vast4 {
         std::function<T*()> elm;
     };
     struct NodeData {
+        NodeData (std::string& val, std::map<std::string, std::string>& attributes) : value(val), attrs(attributes) {}
         std::string& value;
-        std::map<std::string, std::tuple<std::string, std::string&>> attrs;
+        std::map<std::string, std::string>& attrs;
     };
 }
 

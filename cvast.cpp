@@ -23,12 +23,12 @@ void CVast::parse () {
 
     this->vastNode.init(node);
 
-    printf("Version from struct %f\n", this->vastNode.attrs.version);
-
     shared_ptr<GenericNode<Vast>> gen = dynamic_pointer_cast<GenericNode<Vast>>(holder.paths["vast"]);
     Vast4::Vast* vast = gen->elm();
 
-    printf("Version from reflection: %f", vast->attrs.version);
+    printf("Version from struct %f\n", this->vastNode.attrs.version);
+    printf("Version from reflection: %f\n", vast->attrs.version);
+    printf("Version from data: %s", holder.dataPaths.at("vast").attrs["version"].c_str());
 }
 
 //void CVast::walk(const rapidxml::xml_node<>* node, int indent = 0) {

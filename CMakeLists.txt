@@ -16,7 +16,6 @@ add_executable(Cvast
         datatypes/vast4/nodeTypes.hpp
         datatypes/vast4/genericNode.hpp
         utils/vastUtils.hpp
-        includes.h
         cvast.cpp
         cvast.h
         main.cpp)

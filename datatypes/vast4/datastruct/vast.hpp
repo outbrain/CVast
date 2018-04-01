@@ -78,12 +78,17 @@ namespace Vast4 {
             function<Vast*()> ptr = std::bind(&Vast::get, this);
             GenericNode<Vast> gen(ptr);
 
+            NodeData nd(this->value, this->attributes);
+
             holder.paths.insert(make_pair(this->path, make_shared<GenericNode<Vast>>(gen)));
+            holder.dataPaths.insert(make_pair(this->path, nd));
         }
 
         Vast* get () {
             return this;
         }
+
+
 
     public:
         VastAttrs attrs;
