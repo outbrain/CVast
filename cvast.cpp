@@ -28,13 +28,14 @@ void CVast::parse () {
 
     printf("Version from struct %f\n", this->vastNode.attrs.version);
     printf("Version from reflection %f\n", vast->attrs.version);
-    printf("Version from data: %s\n", holder.dataPaths.at("vast").attrs["version"].c_str());
+    printf("Version from data %s\n", holder.dataPaths.at("vast").attrs["version"].c_str());
 
     shared_ptr<GenericNode<Ad>> gen2 = dynamic_pointer_cast<GenericNode<Ad>>(holder.paths["vast/ads0"]);
     Vast4::Ad* ad = gen2->elm();
 
     printf("Ad id from struct %s\n", this->vastNode.ads[0].attrs.id.c_str());
     printf("Ad id from reflection %s\n", ad->attrs.id.c_str());
+    printf("Ad id from data %s\n", holder.dataPaths.at("vast/ads0").attrs["id"].c_str());
 
 }
 

@@ -104,14 +104,7 @@ namespace Vast4 {
                 this->setAttributes();
                 this->createChildren();
                 this->registerNode();
-
-                shared_ptr<GenericNode<Ad>> gen2 = dynamic_pointer_cast<GenericNode<Ad>>(holder.paths["vast/ads0"]);
-                Vast4::Ad* ad = gen2->elm();
             }
-        }
-
-        ~Ad () {
-            printf("destroy");
         }
     };
 }
