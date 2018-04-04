@@ -6,10 +6,15 @@
 #define CVAST_INLINE_HPP
 
 namespace Vast4 {
-    struct inLine {
-        Vast4::adSystem adSystem;
-        Vast4::adTitle adTitle;
-        std::vector<Vast4::impression> impression;
+    struct InLine {
+    public:
+//        Vast4::adSystem adSystem;
+//        Vast4::adTitle adTitle;
+//        std::vector<Vast4::impression> impression;
+
+        void init (rapidxml::xml_node<> *node, string inlinePath) {
+
+        }
     };
 }
 

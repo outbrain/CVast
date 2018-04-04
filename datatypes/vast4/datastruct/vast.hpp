@@ -45,7 +45,7 @@ namespace Vast4 {
 
                     switch (holder.nodeTypes.nodeTags[name]) {
                         case V4T::AD: {
-                            string adPath = this->path + "/ad" + to_string(counter);
+                            string adPath = this->path + "/ads" + to_string(counter);
 
                             Ad current;
                             current.init(sibling, adPath);
@@ -54,7 +54,7 @@ namespace Vast4 {
                             break;
                         }
                         case V4T::ERROR: {
-                            string errorPath = this->path + "/error" + to_string(counter);
+                            string errorPath = this->path + "/errors" + to_string(counter);
 
                             Error current;
                             current.init(sibling, errorPath);
@@ -75,7 +75,7 @@ namespace Vast4 {
         }
 
         void registerNode() {
-            function<Vast*()> ptr = std::bind(&Vast::get, this);
+            function<Vast*()> ptr = std::bind(&Vast::get, *this);
             GenericNode<Vast> gen(ptr);
 
             NodeData nd(this->value, this->attributes);
@@ -92,9 +92,9 @@ namespace Vast4 {
 
     public:
         VastAttrs attrs;
+        string value;
         vector<Vast4::Error> errors;
         vector<Vast4::Ad> ads;
-        string value;
 
         void init(rapidxml::xml_node<> *node) {
             const rapidxml::node_type t = node->type();

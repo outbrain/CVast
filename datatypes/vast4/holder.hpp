@@ -9,6 +9,7 @@
 #include <map>
 #include <memory>
 #include "nodeTypes.hpp"
+#include "dataTypes.hpp"
 #include "genericNode.hpp"
 
 namespace Vast4 {

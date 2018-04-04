@@ -18,4 +18,4 @@ add_executable(Cvast
         utils/vastUtils.hpp
         cvast.cpp
         cvast.h
-        main.cpp)
+        main.cpp datatypes/vast4/datastruct/wrapper.hpp datatypes/vast4/dataTypes.hpp)

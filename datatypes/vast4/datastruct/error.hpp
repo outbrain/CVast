@@ -13,23 +13,32 @@ namespace Vast4 {
         map<string, string> attributes;
 
         void setValue () {
-            this->value = this->node->value();
+            URL url(this->node->value());
+            this->value = url;
         }
 
         void registerNode() {
-//            shared_ptr<error> ptr = make_shared<error>(this);
-//            GenericNode<error> gen(ptr, this->value, this->attributes);
-//
-//            nodePaths.paths.insert(make_pair(this->path, make_shared<GenericNode<error>>(gen)));
+            function<Error*()> ptr = std::bind(&Error::get, this);
+            GenericNode<Error> gen(ptr);
+
+            NodeData nd(this->value.value, this->attributes);
+
+            holder.paths.insert(make_pair(this->path, make_shared<GenericNode<Error>>(gen)));
+            holder.dataPaths.insert(make_pair(this->path, nd));
+        }
+
+        Error* get () {
+            return this;
         }
 
     public:
-        std::string value;
+        URL value;
 
         void init (rapidxml::xml_node<> *node, string errorPath) {
             const rapidxml::node_type t = node->type();
 
             if (rapidxml::node_element == t) {
+                this->path = errorPath;
                 this->node = node;
                 this->setValue();
                 this->registerNode();
