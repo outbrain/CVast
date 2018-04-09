@@ -21,7 +21,7 @@ void CVast::parse () {
     this->doc.parse<rapidxml::parse_trim_whitespace>(&this->writableXML[0]);
     rapidxml::xml_node<> *node = doc.first_node();
 
-    this->vastNode.init(node);
+    this->vastNode.init(node, "vast");
 
     shared_ptr<GenericNode<Vast>> gen = dynamic_pointer_cast<GenericNode<Vast>>(holder.paths["vast"]);
     Vast4::Vast* vast = gen->elm();

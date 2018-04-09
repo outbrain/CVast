@@ -6,6 +6,7 @@
 #define CVAST_VAST_HPP
 
 #include "../holder.hpp"
+#include "../vastBase.hpp"
 #include "ad.hpp"
 #include "error.hpp"
 
@@ -17,19 +18,13 @@ namespace Vast4 {
         double version;
     };
 
-    struct Vast {
+    struct Vast : VB<Vast> {
     private:
-        string path = "vast";
-        rapidxml::xml_node<> *node;
-        map<string, string> attributes;
         int childs[2] = { holder.nodeTypes.nodeTags["AD"], holder.nodeTypes.nodeTags["ERROR"] };
 
         void setAttributes() {
-            this->attributes = VastUtils::getAttributesMap(this->node);
-
-            if (this->attributes.find("version") != this->attributes.end()) {
+            if (this->attributes.find("version") != this->attributes.end())
                 this->attrs.version = VastUtils::castStringToDbl(this->attributes["version"]);
-            }
         }
 
         void createChildren() {
@@ -41,23 +36,26 @@ namespace Vast4 {
                 int *isChild = find(begin(this->childs), end(this->childs), holder.nodeTypes.nodeTags[name]);
 
                 if (isChild != end(this->childs)) {
-                    size_t counter = ads.size();
+                    string path;
+                    size_t counter;
 
                     switch (holder.nodeTypes.nodeTags[name]) {
                         case V4T::AD: {
-                            string adPath = this->path + "/ads" + to_string(counter);
+                            counter = this->ads.size();
+                            path = this->path + "/ads" + to_string(counter);
 
                             Ad current;
-                            current.init(sibling, adPath);
+                            current.init(sibling, path);
 
                             this->ads.push_back(current);
                             break;
                         }
                         case V4T::ERROR: {
-                            string errorPath = this->path + "/errors" + to_string(counter);
+                            counter = this->errors.size();
+                            path = this->path + "/errors" + to_string(counter);
 
                             Error current;
-                            current.init(sibling, errorPath);
+                            current.init(sibling, path);
 
                             this->errors.push_back(current);
                             break;
@@ -74,40 +72,16 @@ namespace Vast4 {
             }
         }
 
-        void registerNode() {
-            function<Vast*()> ptr = std::bind(&Vast::get, *this);
-            GenericNode<Vast> gen(ptr);
-
-            NodeData nd(this->value, this->attributes);
-
-            holder.paths.insert(make_pair(this->path, make_shared<GenericNode<Vast>>(gen)));
-            holder.dataPaths.insert(make_pair(this->path, nd));
-        }
-
-        Vast* get () {
-            return this;
-        }
-
-
-
     public:
         VastAttrs attrs;
         string value;
         vector<Vast4::Error> errors;
         vector<Vast4::Ad> ads;
 
-        void init(rapidxml::xml_node<> *node) {
-            const rapidxml::node_type t = node->type();
-
-            if (rapidxml::node_element == t) {
-                this->node = node;
-                this->setAttributes();
-                this->createChildren();
-                this->registerNode();
-            }
+        Vast* get () {
+            return this;
         }
     };
-
 }
 
 #endif //CVAST_VAST_HPP

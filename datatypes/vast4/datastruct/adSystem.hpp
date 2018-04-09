@@ -6,13 +6,28 @@
 #define CVAST_ADSYSTEM_HPP
 
 namespace Vast4 {
-    struct adSystemAttrs {
+    struct AdSystemAttrs {
         std::string version;
     };
 
-    struct adSystem {
-        adSystemAttrs attrs;
+    struct AdSystem : VB<AdSystem> {
+    private:
+        void setValue () {
+            this->value = this->node->value();
+        }
+
+        void setAttributes() {
+            if (this->attributes.find("version") != this->attributes.end())
+                this->attrs.version = this->attributes["version"];
+        }
+
+    public:
+        AdSystemAttrs attrs;
         std::string value;
+
+        AdSystem* get () {
+            return this;
+        }
     };
 }
 

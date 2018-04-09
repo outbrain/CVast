@@ -6,8 +6,18 @@
 #define CVAST_ADTITLE_HPP
 
 namespace Vast4 {
-    struct adTitle {
+    struct AdTitle : VB<AdTitle> {
+    private:
+        void setValue () {
+            this->value = this->node->value();
+        }
+
+    public:
         std::string value;
+
+        AdTitle* get () {
+            return this;
+        }
     };
 }
 

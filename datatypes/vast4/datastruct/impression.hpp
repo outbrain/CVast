@@ -6,13 +6,29 @@
 #define CVAST_IMPRESSION_HPP
 
 namespace Vast4 {
-    struct impressionAttrs {
+    struct ImpressionAttrs {
         std::string id;
     };
 
-    struct impression {
-        impressionAttrs attrs;
-        std::string value;
+    struct Impression : VB<Impression> {
+    private:
+        void setValue () {
+            URL url(this->node->value());
+            this->value = url;
+        }
+
+        void setAttributes() {
+            if (this->attributes.find("id") != this->attributes.end())
+                this->attrs.id = this->attributes["id"];
+        }
+
+    public:
+        ImpressionAttrs attrs;
+        URL value;
+
+        Impression* get () {
+            return this;
+        }
     };
 }
 

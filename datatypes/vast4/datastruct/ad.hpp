@@ -9,7 +9,6 @@
 #include "inLine.hpp"
 #include "wrapper.hpp"
 
-
 extern struct Vast4::Holder holder;
 
 namespace Vast4 {
@@ -20,16 +19,11 @@ namespace Vast4 {
         bool conditionalAd;
     };
 
-    struct Ad {
+    struct Ad : VB<Ad> {
     private:
-        string path;
-        rapidxml::xml_node<> *node;
-        map<string, string> attributes;
         int childs[2] = { holder.nodeTypes.nodeTags["INLINE"], holder.nodeTypes.nodeTags["WRAPPER"] };
 
-        void setAttributes() {
-            this->attributes = VastUtils::getAttributesMap(this->node);
-
+        void setAttributes () {
             if (this->attributes.find("id") != this->attributes.end()) {
                 this->attrs.id = this->attributes["id"];
             }
@@ -43,24 +37,26 @@ namespace Vast4 {
             }
         }
 
-        void createChildren() {
+        void createChildren () {
             rapidxml::xml_node<> *sibling = this->node->first_node();
 
-            while(sibling != NULL){
+            while (sibling != NULL) {
                 string name = sibling->name();
                 VastUtils::toUpperCase(name);
                 int *isChild = find(begin(this->childs), end(this->childs), holder.nodeTypes.nodeTags[name]);
 
                 if (isChild != end(this->childs)) {
+                    string path;
+
                     switch (holder.nodeTypes.nodeTags[name]) {
                         case V4T::INLINE: {
-                            string inlinePath = this->path + "/inLine";
-                            this->inLine.init(sibling, inlinePath);
+                            path = this->path + "/inLine";
+                            this->inLine.init(sibling, path);
                             break;
                         }
                         case V4T::WRAPPER: {
-                            string wrapperPath = this->path + "/wrapper";
-                            this->wrapper.init(sibling, wrapperPath);
+                            path = this->path + "/wrapper";
+                            this->wrapper.init(sibling, path);
                             break;
                         }
                     }
@@ -75,36 +71,14 @@ namespace Vast4 {
             }
         }
 
-        void registerNode() {
-            function<Ad*()> ptr = std::bind(&Ad::get, *this);
-            GenericNode<Ad> gen(ptr);
-
-            NodeData nd(this->value, this->attributes);
-
-            holder.paths.insert(make_pair(this->path, make_shared<GenericNode<Ad>>(gen)));
-            holder.dataPaths.insert(make_pair(this->path, nd));
-        }
-
-        Ad* get () {
-            return this;
-        }
-
     public:
         AdAttrs attrs;
         string value;
         InLine inLine;
         Wrapper wrapper;
 
-        void init(rapidxml::xml_node<> *node, string adPath) {
-            const rapidxml::node_type t = node->type();
-
-            if (rapidxml::node_element == t) {
-                this->path = adPath;
-                this->node = node;
-                this->setAttributes();
-                this->createChildren();
-                this->registerNode();
-            }
+        Ad* get () {
+            return this;
         }
     };
 }

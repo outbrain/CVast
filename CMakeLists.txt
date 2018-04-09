@@ -20,4 +20,4 @@ add_executable(Cvast
         utils/vastUtils.hpp
         cvast.cpp
         cvast.h
-        main.cpp)
+        main.cpp datatypes/vast4/vastBase.hpp datatypes/vast4/datastruct/category.hpp datatypes/vast4/datastruct/description.hpp datatypes/vast4/datastruct/advertiser.hpp datatypes/vast4/datastruct/pricing.hpp datatypes/vast4/datastruct/survey.hpp datatypes/vast4/datastruct/viewableImpression.hpp datatypes/vast4/datastruct/adVerifications.hpp datatypes/vast4/datastruct/extensions.hpp datatypes/vast4/datastruct/creatives.hpp)
