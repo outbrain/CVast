@@ -15,8 +15,8 @@ namespace Vast4 {
     template <typename T>
     struct GenericNode : Generic {
         GenericNode () {}
-        GenericNode (std::function<T*()> node) : elm(node) {}
-        std::function<T*()> elm;
+        GenericNode (std::function<T*()> node) : self(node) {}
+        std::function<T*()> self;
     };
     struct NodeData {
         std::string value;

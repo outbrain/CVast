@@ -94,10 +94,34 @@ namespace Vast4 {
         MIMETYPE () {}
 
         MIMETYPE (std::string mimeType) {
-            std::string mime[] = {
-                    "text/javascript", "application/javascript", "application/json", "text/plain", "text/html", "text/css",
-                    "image/png", "application/zip"
+            std::string mime[66] = {
+                    "application/octet-stream", "application/http", "application/javascript", "application/json", "application/mp4", "application/node", "application/ogg",
+                    "application/passport", "application/pdf", "application/postscript", "application/rdf+xml", "application/rtf", "application/soap+xml", "application/sql",
+                    "application/xhtml+xml", "application/xml", "application/zip", "application/zlib", "audio/3gpp", "audio/3gpp2", "audio/aac", "audio/mp4", "audio/mpeg", "audio/webm",
+                    "audio/ogg", "audio/vorbis", "audio/vorbis-config", "font/otf", "font/ttf", "font/woff", "font/woff2", "image/bmp", "image/png", "image/tiff", "image/jpg",
+                    "image/gif", "message/http", "model/x3d-vrml", "model/x3d+xml", "multipart/form-data", "multipart/encrypted", "multipart/report", "multipart/signed", "text/plain",
+                    "text/css", "text/csv", "text/dns", "text/ecmascript", "text/html", "text/javascript", "text/markdown", "text/rtf", "text/xml", "text/xml-external-parsed-entity",
+                    "video/3gpp", "video/3gpp2", "video/h261", "video/h263", "video/h264", "video/jpeg", "video/mp4", "video/ogg", "video/quicktime", "video/webm", "video/mpeg", "video/x-ms-wmv"
             };
+
+            VastUtils::toLowerCase(mimeType);
+
+            std::string *isMime = find(begin(mime), end(mime), mimeType);
+            if (isMime != end(mime)) {
+                this->value = std::move(mimeType);
+            } else {
+                throw std::invalid_argument("Invalid pricing currency " + mimeType);
+            }
+        }
+    };
+
+    struct XML {
+        std::string value;
+
+        XML () {}
+
+        XML (std::string xml) {
+
         }
     };
 }

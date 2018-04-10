@@ -8,42 +8,45 @@
 extern struct Vast4::Holder holder;
 
 namespace Vast4 {
-    struct ViewUndetermined : VB {
+    struct ViewUndetermined : VB<ViewUndetermined> {
     private:
         void setValue() {
-            this->value = this->node->value();
+            URL url(this->node->value());
+            this->value = url;
         }
 
     public:
-        std::string value;
+        URL value;
 
         ViewUndetermined *get() {
             return this;
         }
     };
 
-    struct NotViewable : VB {
+    struct NotViewable : VB<NotViewable> {
     private:
         void setValue() {
-            this->value = this->node->value();
+            URL url(this->node->value());
+            this->value = url;
         }
 
     public:
-        std::string value;
+        URL value;
 
         NotViewable *get() {
             return this;
         }
     };
 
-    struct Viewable : VB {
+    struct Viewable : VB<Viewable> {
     private:
         void setValue() {
-            this->value = this->node->value();
+            URL url(this->node->value());
+            this->value = url;
         }
 
     public:
-        std::string value;
+        URL value;
 
         Viewable *get() {
             return this;
@@ -54,7 +57,7 @@ namespace Vast4 {
         string id;
     };
 
-    struct ViewableImpression : VB {
+    struct ViewableImpression : VB<ViewableImpression> {
     private:
         int childs[3] = { holder.nodeTypes.nodeTags["VIEWABLE"], holder.nodeTypes.nodeTags["NOTVIEWABLE"],  holder.nodeTypes.nodeTags["VIEWUNDETERMINED"]};
 
@@ -74,21 +77,37 @@ namespace Vast4 {
 
                 if (isChild != end(this->childs)) {
                     string path;
+                    size_t counter;
 
                     switch (holder.nodeTypes.nodeTags[name]) {
                         case V4T::VIEWABLE: {
-                            path = this->path + "/viewable";
-                            this->viewable.init(sibling, path);
+                            counter = this->viewable.size();
+                            path = this->path + "/viewable" + to_string(counter);
+
+                            Viewable viewable;
+                            viewable.init(sibling, path);
+
+                            this->viewable.push_back(viewable);
                             break;
                         }
                         case V4T::NOTVIEWABLE: {
-                            path = this->path + "/notViewable";
-                            this->notViewable.init(sibling, path);
+                            counter = this->notViewable.size();
+                            path = this->path + "/notViewable" + to_string(counter);
+
+                            NotViewable notViewable;
+                            notViewable.init(sibling, path);
+
+                            this->notViewable.push_back(notViewable);
                             break;
                         }
                         case V4T::VIEWUNDETERMINED: {
-                            path = this->path + "/viewUndetermined";
-                            this->viewUndetermined.init(sibling, path);
+                            counter = this->viewUndetermined.size();
+                            path = this->path + "/viewUndetermined" + to_string(counter);
+
+                            ViewUndetermined viewUndetermined;
+                            viewUndetermined.init(sibling, path);
+
+                            this->viewUndetermined.push_back(viewUndetermined);
                             break;
                         }
                     }
@@ -104,9 +123,9 @@ namespace Vast4 {
         }
     public:
         ViewableImpressionAttrs attrs;
-        NotViewable notViewable;
-        Viewable viewable;
-        ViewUndetermined viewUndetermined;
+        vector<NotViewable> notViewable;
+        vector<Viewable> viewable;
+        vector<ViewUndetermined> viewUndetermined;
 
         ViewableImpression* get () {
             return this;
