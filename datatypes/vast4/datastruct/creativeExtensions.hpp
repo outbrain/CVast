@@ -1,38 +1,32 @@
 //
-// Created by Jonathan Sellam on 09/04/2018.
+// Created by Oreli Levi on 10/04/2018.
 //
 
-#ifndef CVAST_CREATIVES_HPP
-#define CVAST_CREATIVES_HPP
-#include "creative.hpp"
+#ifndef CVAST_CREATIVEEXTENSIONS_HPP
+#define CVAST_CREATIVEEXTENSIONS_HPP
 
+#include "creativeExtension.hpp"
 extern struct Vast4::Holder holder;
-
 namespace Vast4 {
-    struct Creatives : VB<Creatives> {
+
+    struct CreativeExtensions : VB<CreativeExtensions>{
     private:
-        int childs[1] = {holder.nodeTypes.nodeTags["CREATIVE"]};
-        void createChildren() {
+        int childs[1] = { holder.nodeTypes.nodeTags["CREATIVEEXTENSION"]};
+        void createChildren () {
             rapidxml::xml_node<> *sibling = this->node->first_node();
 
-            while(sibling != NULL){
+            while (sibling != NULL) {
                 string name = sibling->name();
                 VastUtils::toUpperCase(name);
                 int *isChild = find(begin(this->childs), end(this->childs), holder.nodeTypes.nodeTags[name]);
 
                 if (isChild != end(this->childs)) {
                     string path;
-                    size_t counter;
 
                     switch (holder.nodeTypes.nodeTags[name]) {
-                        case V4T::CREATIVE: {
-                            counter = this->creatives.size();
-                            path = this->path + "/creatives" + to_string(counter);
-
-                            Creative current;
-                            current.init(sibling, path);
-
-                            this->creatives.push_back(current);
+                        case V4T::CREATIVEEXTENSION: {
+                            path = this->path + "/creativeExtension";
+                            this->creativeExtension.init(sibling, path);
                             break;
                         }
                     }
@@ -47,14 +41,11 @@ namespace Vast4 {
             }
         }
 
-
     public:
-        vector<Vast4::Creative> creatives;
-
-        Creatives* get () {
+        CreativeExtension creativeExtension;
+        CreativeExtensions* get () {
             return this;
         }
     };
 }
-
-#endif //CVAST_CREATIVES_HPP
+#endif //CVAST_CREATIVEEXTENSIONS_HPP
