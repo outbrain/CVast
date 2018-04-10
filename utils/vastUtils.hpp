@@ -27,6 +27,11 @@ public:
         return strtod(toCast.c_str(), &pEnd);
     }
 
+    static int castStringToInt(string toCast){
+       int converted = atoi(toCast.c_str());
+        return converted;
+    }
+
     static unsigned short castStringToShort(string toCast) {
         int i = stoi(toCast.c_str());
 

@@ -6,6 +6,7 @@
 #define CVAST_CREATIVE_HPP
 #include "universalAdId.hpp"
 #include "creativeExtensions.hpp"
+#include "linear.hpp"
 
 extern struct Vast4::Holder holder;
 namespace Vast4 {
@@ -70,6 +71,7 @@ namespace Vast4 {
         CreativeAttrs attrs;
         UniversalAdId universalAdId;
         CreativeExtensions creativeExtensions;
+        Linear linear;
         Creative* get () {
             return this;
         }

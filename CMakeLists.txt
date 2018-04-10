@@ -31,6 +31,8 @@ add_executable(Cvast
         datatypes/vast4/dataTypes.hpp
         datatypes/vast4/nodeTypes.hpp
         datatypes/vast4/genericNode.hpp
+        datatypes/vast4/datastruct/linear.hpp
+        datatypes/vast4/datastruct/duration.hpp
         utils/vastUtils.hpp
         cvast.cpp
         cvast.h
