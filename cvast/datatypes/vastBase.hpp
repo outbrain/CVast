@@ -2,9 +2,12 @@
 #ifndef CVAST_VASTBASE_HPP
 #define CVAST_VASTBASE_HPP
 
+#include "holder.hpp"
+#include "dataTypes.hpp"
+
 namespace Cvast {
 
-    extern struct Holder holder;
+    extern struct HolderInstance holder;
 
     template <class N>
     struct VB {
@@ -55,7 +58,8 @@ namespace Cvast {
                 if (this->isAttribute(attrName)) {
                     this->setData(std::get<1>(t), std::get<3>(t), this->nd.attrs[attrName]);
                 } else {
-
+                    if (std::get<2>(t))
+                        this->attrErr(std::get<0>(t), this->node->name());
                 }
             }
         }
@@ -71,6 +75,7 @@ namespace Cvast {
                     if (this->isChild(name)) {
                         string path = this->path + "/" + this->childs[name].path;
                         this->childs[name].childFn(path, sibling);
+                        this->childs[name].exists = true;
                     } else {
                         this->nodeErr(sibling->name(), this->node->name());
                     }
@@ -80,13 +85,21 @@ namespace Cvast {
             }
         }
 
+        virtual void checkRequirements () {
+            for (auto& kv : this->childs) {
+                if (kv.second.required && !kv.second.exists)
+                    ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "Required element " + kv.first + " is missing.");
+            }
+        }
+
         virtual void registerNode () {
+            size_t hs = holder.holders.size() - 1;
             N* d = dynamic_cast<N*>(this);
             function<N*()> ptr = std::bind(&N::get, *d);
             GenericNode<N> gen(ptr);
 
-            holder.paths.insert(make_pair(this->path, make_shared<GenericNode<N>>(gen)));
-            holder.dataPaths.insert(make_pair(this->path, this->nd));
+            holder.holders[hs].paths.insert(make_pair(this->path, make_shared<GenericNode<N>>(gen)));
+            holder.holders[hs].dataPaths.insert(make_pair(this->path, this->nd));
         };
 
         virtual void onCreation () {}
@@ -171,7 +184,16 @@ namespace Cvast {
             return this->nd.attrs.find(attr) != this->nd.attrs.end();
         }
 
-        void nodeErr (string tagName, string nodeName) {
+        void attrErr (const string& attrName, const string& nodeName) {
+            string err = "Missing attribute ";
+            err += attrName;
+            err += " on element ";
+            err += nodeName;
+
+            this->err(ErrorsHandler::INVALID_VAST, err);
+        }
+
+        void nodeErr (const string& tagName, const string& nodeName) {
             string err = "Invalid tagName ";
             err += tagName;
             err += " in element ";
@@ -180,8 +202,9 @@ namespace Cvast {
             this->err(ErrorsHandler::INVALID_VAST, err);
         }
 
-        void err (int errCode, string errWhat) {
-            ErrorsHandler::err(errCode, errWhat, holder.isPermissive);
+        void err (int errCode, const string& errWhat) {
+            size_t hs = holder.holders.size() - 1;
+            ErrorsHandler::err(errCode, errWhat, holder.holders[hs].isPermissive);
         }
 
     public:
@@ -208,6 +231,7 @@ namespace Cvast {
                 this->setValue();
                 this->setAttributes();
                 this->createChildren();
+                this->checkRequirements();
                 this->onCreation();
                 this->registerNode();
             }

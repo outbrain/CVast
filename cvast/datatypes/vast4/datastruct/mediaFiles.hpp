@@ -49,7 +49,7 @@ namespace Cvast {
 
             MediaFiles () {
                 {
-                    NodeWrapper<MediaFile, vector<MediaFile>> wrapper("mediaFiles", true, true, this->mediaFiles);
+                    NodeWrapper<MediaFile, vector<MediaFile>> wrapper("mediaFile", true, true, this->mediaFiles);
                     this->childs.insert(make_pair("MEDIAFILE", wrapper));
                 }
 

@@ -55,5 +55,6 @@ add_executable(Cvast
         cvast/datatypes/vast4/datastruct/duration.hpp
         cvast/utils/vastUtils.hpp
         cvast/parser.hpp
+        cvast/api.hpp
         cvast/cvast_v4.hpp
         main.cpp)

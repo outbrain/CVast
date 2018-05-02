@@ -5,7 +5,6 @@
 #include <string>
 #include <map>
 #include <memory>
-#include "dataTypes.hpp"
 #include "genericNode.hpp"
 
 namespace Cvast {
@@ -13,6 +12,10 @@ namespace Cvast {
         std::map<std::string, std::shared_ptr<Generic>> paths;
         std::map<std::string, NodeData> dataPaths;
         bool isPermissive = false;
+    };
+
+    struct HolderInstance {
+        std::vector<Holder> holders;
     };
 }
 

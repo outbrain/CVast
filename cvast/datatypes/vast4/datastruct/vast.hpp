@@ -2,7 +2,6 @@
 #ifndef CVAST_VAST_HPP
 #define CVAST_VAST_HPP
 
-#include "../../holder.hpp"
 #include "../../vastBase.hpp"
 #include "ad.hpp"
 #include "error.hpp"

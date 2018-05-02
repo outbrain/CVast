@@ -57,6 +57,7 @@ namespace Cvast {
             current.init(sibling, p);
 
             this->node.push_back(current);
+            this->exists = true;
         }
     };
 

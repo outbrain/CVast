@@ -49,15 +49,12 @@ namespace Cvast {
             this->vastNode.init(node, "vast");
         }
 
-        /* API
-         * ...
-         */
-
     protected:
         vector<char> writableXML;
         rapidxml::xml_document<> doc;
         V vastNode;
         bool* isPermissive;
+        size_t uid;
     };
 }
 

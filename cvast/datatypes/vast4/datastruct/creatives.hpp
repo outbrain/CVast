@@ -11,7 +11,7 @@ namespace Cvast {
 
             Creatives () {
                 {
-                    NodeWrapper<Creative, vector<Creative>> wrapper("creatives", true, true, this->creatives);
+                    NodeWrapper<Creative, vector<Creative>> wrapper("creative", true, true, this->creatives);
                     this->childs.insert(make_pair("CREATIVE", wrapper));
                 }
             }
