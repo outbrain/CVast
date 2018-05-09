@@ -1,0 +1,128 @@
+<VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd" version="4.0">
+    <Ad id="417006538">
+        <InLine>
+            <AdSystem>DCM</AdSystem>
+            <AdTitle>In-Stream Video</AdTitle>
+            <Error>
+                <![CDATA[
+https://ade.example.com/ddm/activity/dc_oe=ChMI2Yvgmpjn2gIVVQvgCh36ngiQEAAYACCK0dIv;met=1;ecn1=1;etm1=0;eid1=200015;
+]]>
+            </Error>
+            <Impression>
+                <![CDATA[
+https://ads.e.example.net/pcs/view?xai=AKAOjsvqbpCqEZAiPv3q9AIWPpWLgWppQeE7tcp2uHArU1Sc_UXs7Iq_BJ94LTbJXtqZWtBEKv4mC0ExX4Ui30lMaNIzCJSTXNYxqiLj4cP9OXGL&sig=Cg0ArKJSzDHfWE1xUlyUEAE&urlfix=1&adurl=
+]]>
+            </Impression>
+            <Impression>
+                <![CDATA[
+https://ad.example.com/i/img;adv=11112202579027;ec=11112202777476;adv.a=4476627;c.a=20964611;s.a=3474006;p.a=218327870;a.a=417006538;cache=1927752258;?site_id=
+]]>
+            </Impression>
+            <Creatives>
+                <Creative id="99920010" sequence="1">
+                    <UniversalAdId>abcdef</UniversalAdId>
+                    <Linear>
+                        <Duration>00:01:35</Duration>
+                        <TrackingEvents>
+                            <Tracking event="start">
+                                <![CDATA[
+https://ade.example.com/ddm/activity/dc_oe=ChMI2Yvgmpjn2gIVVQvgCh36ngiQEAAYACCK0dIv;met=1;ecn1=1;etm1=0;eid1=11;
+]]>
+                            </Tracking>
+                            <Tracking event="firstQuartile">
+                                <![CDATA[
+https://ade.example.com/ddm/activity/dc_oe=ChMI2Yvgmpjn2gIVVQvgCh36ngiQEAAYACCK0dIv;met=1;ecn1=1;etm1=0;eid1=960584;
+]]>
+                            </Tracking>
+                            <Tracking event="midpoint">
+                                <![CDATA[
+https://ade.example.com/ddm/activity/dc_oe=ChMI2Yvgmpjn2gIVVQvgCh36ngiQEAAYACCK0dIv;met=1;ecn1=1;etm1=0;eid1=18;
+]]>
+                            </Tracking>
+                            <Tracking event="thirdQuartile">
+                                <![CDATA[
+https://ade.example.com/ddm/activity/dc_oe=ChMI2Yvgmpjn2gIVVQvgCh36ngiQEAAYACCK0dIv;met=1;ecn1=1;etm1=0;eid1=960585;
+]]>
+                            </Tracking>
+                            <Tracking event="complete">
+                                <![CDATA[
+https://ade.example.com/ddm/activity/dc_oe=ChMI2Yvgmpjn2gIVVQvgCh36ngiQEAAYACCK0dIv;met=1;ecn1=1;etm1=0;eid1=13;
+]]>
+                            </Tracking>
+                            <Tracking event="mute">
+                                <![CDATA[
+https://ade.example.com/ddm/activity/dc_oe=ChMI2Yvgmpjn2gIVVQvgCh36ngiQEAAYACCK0dIv;met=1;ecn1=1;etm1=0;eid1=16;
+]]>
+                            </Tracking>
+                            <Tracking event="unmute">
+                                <![CDATA[
+https://ade.example.com/ddm/activity/dc_oe=ChMI2Yvgmpjn2gIVVQvgCh36ngiQEAAYACCK0dIv;met=1;ecn1=1;etm1=0;eid1=149645;
+]]>
+                            </Tracking>
+                            <Tracking event="pause">
+                                <![CDATA[
+https://ade.example.com/ddm/activity/dc_oe=ChMI2Yvgmpjn2gIVVQvgCh36ngiQEAAYACCK0dIv;met=1;ecn1=1;etm1=0;eid1=15;
+]]>
+                            </Tracking>
+                            <Tracking event="fullscreen">
+                                <![CDATA[
+https://ade.example.com/ddm/activity/dc_oe=ChMI2Yvgmpjn2gIVVQvgCh36ngiQEAAYACCK0dIv;met=1;ecn1=1;etm1=0;eid1=19;
+]]>
+                            </Tracking>
+                        </TrackingEvents>
+                        <AdParameters>
+                            <![CDATA[
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;VAST xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;vast.xsd&quot; version=&quot;2.0&quot;&gt; &lt;/VAST&gt;
+]]>
+                        </AdParameters>
+                        <VideoClicks>
+                            <ClickThrough>
+                                <![CDATA[
+https://adclick.e.example.net/pcs/click?xai=AKAOjsvqbpCqEZAiPv3q9AIWPpWLgWppQeE7tcp2uHArU1Sc_UXs7Iq_BJ94LTbJXtqZWtBEKv4mC0ExX4Ui30lMaNIzCJSTXNYxqiLj4cP9OXGL&sig=Cg0ArKJSzN7lH673CLP4EAE&urlfix=1&adurl=https://ad.atdmt.com/c/img%3Badv%3D11112202579027%3Bec%3D11112202777476%3Badv.a%3D4476627%3Bc.a%3D20964611%3Bs.a%3D3474006%3Bp.a%3D218327870%3Ba.a%3D417006538%3Bcache%3D1927752258%3Bqpb%3D1%3B%3Fh%3Dhttps://www.priceline.com.au/healthfix%3Fxid%3Dvid-health%26xid%3D
+]]>
+                            </ClickThrough>
+                        </VideoClicks>
+                        <MediaFiles>
+                            <MediaFile delivery="progressive" width="854" height="480" type="application/javascript" apiFramework="VPAID">
+                                <![CDATA[
+https://imasdk.example.com/js/vpaid_adapter.js
+]]>
+                            </MediaFile>
+                            <MediaFile delivery="progressive" width="854" height="480" type="video/mp4" bitrate="571" scalable="false" maintainAspectRatio="false">
+                                <![CDATA[
+https://www.example.net/videoplayback/id/872178520d29bba5/itag/59/source/doubleclick_dmm/ratebypass/yes/acao/yes/ip/0.0.0.0/ipbits/0/expire/3667352225/sparams/id,itag,source,ratebypass,acao,ip,ipbits,expire/signature/7989A24B458F1DD81F72311E5D36DBC28093541A.708489853472719D56B7CE83BB85AD72E79F6370/key/ck2/file/file.mp4
+]]>
+                            </MediaFile>
+                            <MediaFile delivery="progressive" width="720" height="406" type="video/mp4" bitrate="684" scalable="false" maintainAspectRatio="false">
+                                <![CDATA[
+https://www.example.net/videoplayback/id/872178520d29bba5/itag/346/source/doubleclick_dmm/ratebypass/yes/acao/yes/ip/0.0.0.0/ipbits/0/expire/3667352222/sparams/id,itag,source,ratebypass,acao,ip,ipbits,expire/signature/6E965096E98C6482D9F2F17CDFA5C267F8B32507.547C393BDD08336F8C77D333F60A151A117B1190/key/ck2/file/file.mp4
+]]>
+                            </MediaFile>
+                            <MediaFile delivery="progressive" width="256" height="144" type="application/x-mpeg" bitrate="98" scalable="false" maintainAspectRatio="false">
+                                <![CDATA[
+https://www.example.net/api/manifest/hls_variant/source/doubleclick_dmm/id/872178520d29bba5/itag/0/playlist_type/LIVE/ei/oqzFWqOAO8aSuwKC9Lm4DQ/susc/dcdmm/ip/0.0.0.0/ipbits/0/expire/3667352227/sparams/ip,ipbits,expire,source,id,itag,playlist_type,ei,susc/signature/A9BDBEACD8C8710AB099D26AEC4489DEBFDE64.0E788E0C06303177F2742C23DDB2AF73B04ABABC/key/ck2/file/index.m3u8
+]]>
+                            </MediaFile>
+                        </MediaFiles>
+                    </Linear>
+                </Creative>
+            </Creatives>
+            <Extensions>
+                <Extension type="geo">
+                    <Country>US</Country>
+                    <Bandwidth>4</Bandwidth>
+                    <BandwidthKbps>19480</BandwidthKbps>
+                </Extension>
+                <Extension type="dart">
+                    <AdServingData>
+                        <DeliveryData>
+                            <GeoData>
+                                <![CDATA[ ct=US&st=&city=0&dma=0&zp=&bw=4 ]]>
+                            </GeoData>
+                        </DeliveryData>
+                    </AdServingData>
+                </Extension>
+            </Extensions>
+        </InLine>
+    </Ad>
+</VAST>
