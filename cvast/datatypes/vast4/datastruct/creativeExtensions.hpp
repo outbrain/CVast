@@ -18,11 +18,11 @@ namespace Cvast {
         };
 
         struct CreativeExtensions : VB<CreativeExtensions> {
-            vector<CreativeExtension> creativeExtensions;
+            vector<CreativeExtension> creativeExtension;
 
             CreativeExtensions () {
                 {
-                    NodeWrapper<CreativeExtension, vector<CreativeExtension>> wrapper("creativeExtensions", true, false, this->creativeExtensions);
+                    NodeWrapper<CreativeExtension, vector<CreativeExtension>> wrapper("creativeExtension", true, false, this->creativeExtension);
                     this->childs.insert(make_pair("CREATIVEEXTENSION", wrapper));
                 }
             }

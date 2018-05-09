@@ -5,7 +5,7 @@
 namespace Cvast {
     namespace Vast4 {
         struct TrackingAttrs {
-            string event;
+            EVENT event;
             string offset;
         };
 
@@ -14,7 +14,7 @@ namespace Cvast {
             URL value;
 
             Tracking () : VB("", A_URL, true, &(this->value)) {
-                this->symbols.emplace_back("event", A_STRING, false, &(this->attrs.event));
+                this->symbols.emplace_back("event", A_EVENT, true, &(this->attrs.event));
                 this->symbols.emplace_back("offset", A_STRING, false, &(this->attrs.offset));
             }
         };

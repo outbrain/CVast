@@ -56,6 +56,11 @@ namespace Cvast {
                 this->symbols.emplace_back("sequence", A_SHORT, false, &(this->attrs.sequence));
                 this->symbols.emplace_back("apiFramework", A_STRING, false, &(this->attrs.apiFramework));
             }
+
+            void onCreation () {
+                if (!this->childs["LINEAR"].exists && !this->childs["NONLINEARADS"].exists)
+                    ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "A Linear or NonLinearAds tag must be provided in Creative tag");
+            }
         };
     }
 }

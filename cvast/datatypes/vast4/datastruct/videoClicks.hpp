@@ -45,7 +45,7 @@ namespace Cvast {
 
         struct VideoClicks : VB<VideoClicks> {
             vector<ClickThrough> clickThrough;
-            vector<ClickTracking> clickTrackings;
+            vector<ClickTracking> clickTracking;
             vector<CustomClick> customClicks;
 
             VideoClicks () {
@@ -55,7 +55,7 @@ namespace Cvast {
                 }
 
                 {
-                    NodeWrapper<ClickTracking, vector<ClickTracking>> wrapper("clickTrackings", true, false, this->clickTrackings);
+                    NodeWrapper<ClickTracking, vector<ClickTracking>> wrapper("clickTracking", true, false, this->clickTracking);
                     this->childs.insert(make_pair("CLICKTRACKING", wrapper));
                 }
 

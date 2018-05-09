@@ -2,9 +2,11 @@
 #ifndef CVAST_REQUIREMENTS_H
 #define CVAST_REQUIREMENTS_H
 
-class Requirements {
+#include "validate.h"
+
+class Requirements : public Validate {
 public:
-    Requirements ();
+    Requirements (const std::string& content, int idx);
 };
 
 

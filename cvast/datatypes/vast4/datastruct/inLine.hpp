@@ -21,13 +21,13 @@ namespace Cvast {
         struct InLine : VB<InLine> {
             vector<AdSystem> adSystem;
             vector<AdTitle> adTitle;
-            vector<Impression> impressions;
-            vector<Category> categories;
+            vector<Impression> impression;
+            vector<Category> category;
             vector<Description> description;
             vector<Advertiser> advertiser;
             vector<Pricing> pricing;
-            vector<Survey> surveys;
-            vector<Error> errors;
+            vector<Survey> survey;
+            vector<Error> error;
             vector<Extensions> extensions;
             vector<ViewableImpression> viewableImpression;
             vector<AdVerifications> adVerifications;
@@ -45,12 +45,12 @@ namespace Cvast {
                 }
 
                 {
-                    NodeWrapper<Impression, vector<Impression>> wrapper("impressions", true, true, this->impressions);
+                    NodeWrapper<Impression, vector<Impression>> wrapper("impression", true, true, this->impression);
                     this->childs.insert(make_pair("IMPRESSION", wrapper));
                 }
 
                 {
-                    NodeWrapper<Category, vector<Category>> wrapper("categories", true, false, this->categories);
+                    NodeWrapper<Category, vector<Category>> wrapper("category", true, false, this->category);
                     this->childs.insert(make_pair("CATEGORY", wrapper));
                 }
 
@@ -70,12 +70,12 @@ namespace Cvast {
                 }
 
                 {
-                    NodeWrapper<Survey, vector<Survey>> wrapper("surveys", true, false, this->surveys);
+                    NodeWrapper<Survey, vector<Survey>> wrapper("survey", true, false, this->survey);
                     this->childs.insert(make_pair("SURVEY", wrapper));
                 }
 
                 {
-                    NodeWrapper<Error, vector<Error>> wrapper("errors", true, false, this->errors);
+                    NodeWrapper<Error, vector<Error>> wrapper("error", true, false, this->error);
                     this->childs.insert(make_pair("ERROR", wrapper));
                 }
 

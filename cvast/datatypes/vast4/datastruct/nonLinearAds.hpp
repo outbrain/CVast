@@ -8,12 +8,12 @@
 namespace Cvast {
     namespace Vast4 {
         struct NonLinearAds : VB<NonLinearAds> {
-            vector<NonLinear> nonLinears;
+            vector<NonLinear> nonLinear;
             vector<TrackingEvents> trackingEvents;
 
             NonLinearAds () {
                 {
-                    NodeWrapper<NonLinear, vector<NonLinear>> wrapper("nonLinears", true, true, this->nonLinears);
+                    NodeWrapper<NonLinear, vector<NonLinear>> wrapper("nonLinear", true, true, this->nonLinear);
                     this->childs.insert(make_pair("NONLINEAR", wrapper));
                 }
 

@@ -35,6 +35,11 @@ namespace Cvast {
                 this->symbols.emplace_back("sequence", A_SHORT, false, &(this->attrs.sequence));
                 this->symbols.emplace_back("conditionalAd", A_BOOL, false, &(this->attrs.conditionalAd));
             }
+
+            void onCreation () {
+                if (!this->childs["INLINE"].exists && !this->childs["WRAPPER"].exists)
+                    ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "An InLine or Wrapper tag must be provided in Ad tag");
+            }
         };
     }
 }

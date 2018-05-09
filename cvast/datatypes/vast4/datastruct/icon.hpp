@@ -22,30 +22,30 @@ namespace Cvast {
 
         struct Icon : VB<Icon> {
             IconAttrs attrs;
-            vector<StaticResource> staticResources;
-            vector<IFrameResource> iFrameResources;
-            vector<HTMLResource> htmlResources;
-            vector<IconViewTracking> iconViewTrackings;
+            vector<StaticResource> staticResource;
+            vector<IFrameResource> iFrameResource;
+            vector<HTMLResource> htmlResource;
+            vector<IconViewTracking> iconViewTracking;
             vector<IconClicks> iconClicks;
 
             Icon () {
                 {
-                    NodeWrapper<StaticResource, vector<StaticResource>> wrapper("staticResources", true, false, this->staticResources);
+                    NodeWrapper<StaticResource, vector<StaticResource>> wrapper("staticResource", true, false, this->staticResource);
                     this->childs.insert(make_pair("STATICRESOURCE", wrapper));
                 }
 
                 {
-                    NodeWrapper<IFrameResource, vector<IFrameResource>> wrapper("iFrameResources", true, false, this->iFrameResources);
+                    NodeWrapper<IFrameResource, vector<IFrameResource>> wrapper("iFrameResource", true, false, this->iFrameResource);
                     this->childs.insert(make_pair("IFRAMERESOURCE", wrapper));
                 }
 
                 {
-                    NodeWrapper<HTMLResource, vector<HTMLResource>> wrapper("htmlResources", true, false, this->htmlResources);
+                    NodeWrapper<HTMLResource, vector<HTMLResource>> wrapper("htmlResource", true, false, this->htmlResource);
                     this->childs.insert(make_pair("HTMLRESOURCE", wrapper));
                 }
 
                 {
-                    NodeWrapper<IconViewTracking, vector<IconViewTracking>> wrapper("iconViewTrackings", true, false, this->iconViewTrackings);
+                    NodeWrapper<IconViewTracking, vector<IconViewTracking>> wrapper("iconViewTracking", true, false, this->iconViewTracking);
                     this->childs.insert(make_pair("ICONVIEWTRACKING", wrapper));
                 }
 

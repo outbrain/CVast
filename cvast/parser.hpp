@@ -15,6 +15,7 @@
 #include <sstream>
 #include "rapidxml/rapidxml.hpp"
 #include "utils/vastUtils.hpp"
+#include "datatypes/holder.hpp"
 #include "datatypes/errorsHandler.hpp"
 
 namespace Cvast {
@@ -24,6 +25,8 @@ namespace Cvast {
     template <class V>
     class Parser {
     public:
+        HolderInstance holder;
+
         Parser () {}
 
         Parser (const string& xml) {
@@ -36,17 +39,20 @@ namespace Cvast {
         virtual V getVast () = 0;
 
         void parse () {
-            rapidxml::xml_document<>& d = this->doc;
+            if (!this->parsed) {
+                rapidxml::xml_document<>& d = this->doc;
 
-            try {
-                d.parse<rapidxml::parse_trim_whitespace>(&this->writableXML[0]);
-            } catch (const rapidxml::parse_error& e) {
-                ErrorsHandler::err(ErrorsHandler::PARSING_ERR, e.what(), *this->isPermissive);
+                try {
+                    d.parse<rapidxml::parse_trim_whitespace>(&this->writableXML[0]);
+                } catch (const rapidxml::parse_error& e) {
+                    ErrorsHandler::err(ErrorsHandler::PARSING_ERR, e.what(), this->isPermissive);
+                }
+
+                rapidxml::xml_node<> *node = d.first_node();
+
+                this->vastNode.init(node, "vast", this->holder.holders[this->uid]);
+                this->parsed = true;
             }
-
-            rapidxml::xml_node<> *node = d.first_node();
-
-            this->vastNode.init(node, "vast");
         }
 
     protected:
@@ -55,6 +61,9 @@ namespace Cvast {
         V vastNode;
         bool* isPermissive;
         size_t uid;
+
+    private:
+        bool parsed = false;
     };
 }
 

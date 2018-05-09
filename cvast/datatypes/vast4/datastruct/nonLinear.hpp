@@ -27,26 +27,26 @@ namespace Cvast {
         };
 
         struct NonLinear: VB<NonLinear> {
-            vector<StaticResource> staticResources;
-            vector<IFrameResource> iFrameResources;
-            vector<HTMLResource> htmlResources;
+            vector<StaticResource> staticResource;
+            vector<IFrameResource> iFrameResource;
+            vector<HTMLResource> htmlResource;
             vector<AdParameters> adParameters;
             vector<NonLinearClickThrough> nonLinearClickThrough;
-            vector<NonLinearClickTracking> nonLinearClickTrackings;
+            vector<NonLinearClickTracking> nonLinearClickTracking;
 
             NonLinear () {
                 {
-                    NodeWrapper<StaticResource, vector<StaticResource>> wrapper("staticResources", true, false, this->staticResources);
+                    NodeWrapper<StaticResource, vector<StaticResource>> wrapper("staticResource", true, false, this->staticResource);
                     this->childs.insert(make_pair("STATICRESOURCE", wrapper));
                 }
 
                 {
-                    NodeWrapper<IFrameResource, vector<IFrameResource>> wrapper("iFrameResources", true, false, this->iFrameResources);
+                    NodeWrapper<IFrameResource, vector<IFrameResource>> wrapper("iFrameResource", true, false, this->iFrameResource);
                     this->childs.insert(make_pair("IFRAMERESOURCE", wrapper));
                 }
 
                 {
-                    NodeWrapper<HTMLResource, vector<HTMLResource>> wrapper("htmlResources", true, false, this->htmlResources);
+                    NodeWrapper<HTMLResource, vector<HTMLResource>> wrapper("htmlResource", true, false, this->htmlResource);
                     this->childs.insert(make_pair("HTMLRESOURCE", wrapper));
                 }
 
@@ -61,7 +61,7 @@ namespace Cvast {
                 }
 
                 {
-                    NodeWrapper<NonLinearClickTracking, vector<NonLinearClickTracking>> wrapper("nonLinearClickTrackings", true, false, this->nonLinearClickTrackings);
+                    NodeWrapper<NonLinearClickTracking, vector<NonLinearClickTracking>> wrapper("nonLinearClickTracking", true, false, this->nonLinearClickTracking);
                     this->childs.insert(make_pair("NONLINEARCLICKTRACKING", wrapper));
                 }
             }

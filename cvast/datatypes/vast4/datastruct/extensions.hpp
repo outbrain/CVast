@@ -18,11 +18,11 @@ namespace Cvast {
         };
 
         struct Extensions : VB<Extensions> {
-            vector<Extension> extensions;
+            vector<Extension> extension;
 
             Extensions () {
                 {
-                    NodeWrapper<Extension, vector<Extension>> wrapper("extensions", true, false, this->extensions);
+                    NodeWrapper<Extension, vector<Extension>> wrapper("extension", true, false, this->extension);
                     this->childs.insert(make_pair("EXTENSION", wrapper));
                 }
             }

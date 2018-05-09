@@ -8,6 +8,7 @@ add_executable(Cvast
         cvast/rapidxml/rapidxml_print.hpp
         cvast/datatypes/holder.hpp
         cvast/datatypes/genericNode.hpp
+        cvast/datatypes/nodeWrapper.hpp
         cvast/datatypes/dataTypes.hpp
         cvast/datatypes/vastBase.hpp
         cvast/datatypes/errorsHandler.hpp
@@ -57,4 +58,14 @@ add_executable(Cvast
         cvast/parser.hpp
         cvast/api.hpp
         cvast/cvast_v4.hpp
-        main.cpp)
+        example.cpp)
+
+add_executable(Test
+        tests/vast4/requirements.h
+        tests/vast4/requirements.cpp
+        tests/vast4/values.h
+        tests/vast4/values.cpp
+        tests/vast4/validate.h
+        tests/vast4/tests.h
+        tests/vast4/tests.cpp
+        tests/vast4/main.cpp)

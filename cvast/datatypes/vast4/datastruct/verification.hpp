@@ -12,18 +12,18 @@ namespace Cvast {
 
         struct Verification : VB<Verification> {
             VerificationAttrs attrs;
-            vector<JavascriptResource> javascriptResources;
-            vector<FlashResource> flashResources;
+            vector<JavascriptResource> javascriptResource;
+            vector<FlashResource> flashResource;
             vector<ViewableImpression> viewableImpression;
 
             Verification () {
                 {
-                    NodeWrapper<JavascriptResource, vector<JavascriptResource>> wrapper("javascriptResources", true, false, this->javascriptResources);
+                    NodeWrapper<JavascriptResource, vector<JavascriptResource>> wrapper("javascriptResource", true, false, this->javascriptResource);
                     this->childs.insert(make_pair("JAVASCRIPTRESOURCE", wrapper));
                 }
 
                 {
-                    NodeWrapper<FlashResource, vector<FlashResource>> wrapper("flashResources", true, false, this->flashResources);
+                    NodeWrapper<FlashResource, vector<FlashResource>> wrapper("flashResource", true, false, this->flashResource);
                     this->childs.insert(make_pair("FLASHRESOURCE", wrapper));
                 }
 

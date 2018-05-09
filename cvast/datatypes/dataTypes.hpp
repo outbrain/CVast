@@ -8,21 +8,18 @@
 
 namespace Cvast {
 
-    extern struct HolderInstance holder;
-
     struct URL {
         std::string value;
 
         URL () {}
 
-        URL (const std::string& url) {
+        URL (const std::string& url, bool isPermissive = false) {
             std::regex r("(http|ftp|https)://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?");
 
             if (std::regex_match(url, r)) {
                 this->value = url;
             } else {
-                size_t hs = holder.holders.size() - 1;
-                ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "Invalid URL " + url, holder.holders[hs].isPermissive);
+                ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "Invalid URL " + url, isPermissive);
             }
         }
     };
@@ -32,14 +29,13 @@ namespace Cvast {
 
         DATE () {}
 
-        DATE (const std::string& date) {
+        DATE (const std::string& date, bool isPermissive = false) {
             std::regex r("^\\d{4}(-\\d\\d(-\\d\\d(T\\d\\d:\\d\\d(:\\d\\d)?(\\.\\d+)?(([+-]\\d\\d:\\d\\d)|Z)?)?)?)?$");
 
             if (std::regex_match(date, r)) {
                 this->value = date;
             } else {
-                size_t hs = holder.holders.size() - 1;
-                ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "Invalid DATE format " + date, holder.holders[hs].isPermissive);
+                ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "Invalid DATE format " + date, isPermissive);
             }
         }
     };
@@ -49,14 +45,13 @@ namespace Cvast {
 
         TIME () {}
 
-        TIME (const std::string& time) {
+        TIME (const std::string& time, bool isPermissive = false) {
             std::regex r("^(?:(?:([01]?\\d|2[0-3]):)([0-5]?\\d):)([0-5]?\\d)([.]\\d{3})?$");
 
             if (std::regex_match(time, r)) {
                 this->value = time;
             } else {
-                size_t hs = holder.holders.size() - 1;
-                ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "Invalid TIME format " + time, holder.holders[hs].isPermissive);
+                ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "Invalid TIME format " + time, isPermissive);
             }
         }
     };
@@ -66,7 +61,7 @@ namespace Cvast {
 
         PRICING_MODEL () {}
 
-        PRICING_MODEL (std::string model) {
+        PRICING_MODEL (std::string model, bool isPermissive = false) {
             std::string models[4] = { "CPM", "CPC", "CPE", "CPV" };
             VastUtils::toUpperCase(model);
 
@@ -74,8 +69,7 @@ namespace Cvast {
             if (isModel != end(models)) {
                 this->value = std::move(model);
             } else {
-                size_t hs = holder.holders.size() - 1;
-                ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "Invalid pricing model " + model, holder.holders[hs].isPermissive);
+                ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "Invalid pricing model " + model, isPermissive);
             }
         }
     };
@@ -85,7 +79,7 @@ namespace Cvast {
 
         CURRENCY () {}
 
-        CURRENCY (std::string currency) {
+        CURRENCY (std::string currency, bool isPermissive = false) {
             std::string iso[163] = {
                     "AED", "AFN", "ALL", "AMD", "ANG", "AOA", "ARS", "AUD", "AWG", "AZN", "BAM", "BBD", "BDT", "BGN", "BHD", "BIF", "BMD", "BND", "BOB", "BRL", "BSD", "BTN", "BWP", "BYN",
                     "BZD", "CAD", "CDF", "CHF", "CLP", "CNY", "COP", "CRC", "CUC", "CUP", "CVE", "CZK", "DJF", "DKK", "DOP", "DZD", "EGP", "ERN", "ETB", "EUR", "FJD", "FKP", "GBP", "GEL",
@@ -102,8 +96,7 @@ namespace Cvast {
             if (isCurrency != end(iso)) {
                 this->value = std::move(currency);
             } else {
-                size_t hs = holder.holders.size() - 1;
-                ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "Invalid pricing currency " + currency, holder.holders[hs].isPermissive);
+                ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "Invalid pricing currency " + currency, isPermissive);
             }
         }
     };
@@ -113,7 +106,7 @@ namespace Cvast {
 
         MIMETYPE () {}
 
-        MIMETYPE (std::string mimeType) {
+        MIMETYPE (std::string mimeType, bool isPermissive = false) {
             std::string mime[67] = {
                     "application/octet-stream", "application/http", "application/javascript", "application/json", "application/mp4", "application/node", "application/ogg",
                     "application/passport", "application/pdf", "application/postscript", "application/rdf+xml", "application/rtf", "application/soap+xml", "application/sql", "application/x-mpeg",
@@ -130,8 +123,29 @@ namespace Cvast {
             if (isMime != end(mime)) {
                 this->value = std::move(mimeType);
             } else {
-                size_t hs = holder.holders.size() - 1;
-                ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "Invalid mime-type " + mimeType, holder.holders[hs].isPermissive);
+                ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "Invalid mime-type " + mimeType, isPermissive);
+            }
+        }
+    };
+
+    struct EVENT {
+        std::string value;
+
+        EVENT () {}
+
+        EVENT (std::string evt, bool isPermissive = false) {
+            std::string events[24] = {
+                    "mute", "unmute", "pause", "resume", "rewind", "skip", "playerexpand", "playercollapse", "start", "firstquartile", "midpoint", "thirdquartile", "complete", "acceptinvitationlinear",
+                    "timespentviewing", "otheradinteraction", "progress", "creativeview", "acceptinvitation", "adexpand", "adcollapse", "minimize", "close", "overlayviewduration"
+            };
+
+            VastUtils::toLowerCase(evt);
+
+            std::string *isEvt = find(begin(events), end(events), evt);
+            if (isEvt != end(events)) {
+                this->value = std::move(evt);
+            } else {
+                ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "Invalid event " + evt, isPermissive);
             }
         }
     };
@@ -141,12 +155,16 @@ namespace Cvast {
 
         XML () {}
 
-        XML (rapidxml::xml_node<> *node) {
+        XML (rapidxml::xml_node<> *node, bool isPermissive = false) {
             if (rapidxml::node_element == node->first_node()->type()) {
-                rapidxml::print(std::back_inserter(this->value), *node->first_node(), rapidxml::print_no_indenting);
+                rapidxml::xml_node<> *sibling = node->first_node();
+
+                while (sibling != NULL) {
+                    rapidxml::print(std::back_inserter(this->value), *sibling, rapidxml::print_no_indenting);
+                    sibling = sibling->next_sibling();
+                }
             } else {
-                size_t hs = holder.holders.size() - 1;
-                ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "Invalid XML element", holder.holders[hs].isPermissive);
+                ErrorsHandler::err(ErrorsHandler::INVALID_VAST, "Invalid XML element", isPermissive);
             }
         }
     };

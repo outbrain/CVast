@@ -7,11 +7,11 @@
 namespace Cvast {
     namespace Vast4 {
         struct TrackingEvents: VB<TrackingEvents> {
-            vector<Tracking> trackings;
+            vector<Tracking> tracking;
 
             TrackingEvents () {
                 {
-                    NodeWrapper<Tracking, vector<Tracking>> wrapper("trackings", true, false, this->trackings);
+                    NodeWrapper<Tracking, vector<Tracking>> wrapper("tracking", true, false, this->tracking);
                     this->childs.insert(make_pair("TRACKING", wrapper));
                 }
             }

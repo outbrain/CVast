@@ -7,11 +7,11 @@
 namespace Cvast {
     namespace Vast4 {
         struct Icons : VB<Icons> {
-            vector<Icon> icons;
+            vector<Icon> icon;
 
             Icons () {
                 {
-                    NodeWrapper<Icon, vector<Icon>> wrapper("icons", true, true, this->icons);
+                    NodeWrapper<Icon, vector<Icon>> wrapper("icon", true, true, this->icon);
                     this->childs.insert(make_pair("ICON", wrapper));
                 }
             }

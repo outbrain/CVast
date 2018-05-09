@@ -7,11 +7,11 @@
 namespace Cvast {
     namespace Vast4 {
         struct Creatives : VB<Creatives> {
-            vector<Creative> creatives;
+            vector<Creative> creative;
 
             Creatives () {
                 {
-                    NodeWrapper<Creative, vector<Creative>> wrapper("creative", true, true, this->creatives);
+                    NodeWrapper<Creative, vector<Creative>> wrapper("creative", true, true, this->creative);
                     this->childs.insert(make_pair("CREATIVE", wrapper));
                 }
             }

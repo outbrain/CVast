@@ -43,13 +43,13 @@ namespace Cvast {
         };
 
         struct MediaFiles : VB<MediaFiles> {
-            vector<MediaFile> mediaFiles;
+            vector<MediaFile> mediaFile;
             vector<Mezzanine> mezzanine;
-            vector<InteractiveCreativeFile> interactiveCreativeFiles;
+            vector<InteractiveCreativeFile> interactiveCreativeFile;
 
             MediaFiles () {
                 {
-                    NodeWrapper<MediaFile, vector<MediaFile>> wrapper("mediaFile", true, true, this->mediaFiles);
+                    NodeWrapper<MediaFile, vector<MediaFile>> wrapper("mediaFile", true, true, this->mediaFile);
                     this->childs.insert(make_pair("MEDIAFILE", wrapper));
                 }
 
@@ -59,7 +59,7 @@ namespace Cvast {
                 }
 
                 {
-                    NodeWrapper<InteractiveCreativeFile, vector<InteractiveCreativeFile>> wrapper("interactiveCreativeFiles", true, false, this->interactiveCreativeFiles);
+                    NodeWrapper<InteractiveCreativeFile, vector<InteractiveCreativeFile>> wrapper("interactiveCreativeFile", true, false, this->interactiveCreativeFile);
                     this->childs.insert(make_pair("INTERACTIVECREATIVEFILE", wrapper));
                 }
             }

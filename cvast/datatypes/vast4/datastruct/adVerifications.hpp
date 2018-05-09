@@ -8,11 +8,11 @@
 namespace Cvast {
     namespace Vast4 {
         struct AdVerifications : VB<AdVerifications> {
-            vector<Verification> verifications;
+            vector<Verification> verification;
 
             AdVerifications () {
                 {
-                    NodeWrapper<Verification, vector<Verification>> wrapper("verifications", true, false, this->verifications);
+                    NodeWrapper<Verification, vector<Verification>> wrapper("verification", true, false, this->verification);
                     this->childs.insert(make_pair("VERIFICATION", wrapper));
                 }
             }

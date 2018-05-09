@@ -3,16 +3,17 @@
 #define CVAST_VASTBASE_HPP
 
 #include "holder.hpp"
+#include "nodeWrapper.hpp"
+#include "errorsHandler.hpp"
 #include "dataTypes.hpp"
 
 namespace Cvast {
-
-    extern struct HolderInstance holder;
 
     template <class N>
     struct VB {
     protected:
         string path;
+        bool* isPermissive;
         rapidxml::xml_node<> *node;
         NodeData nd;
         std::map<std::string, Wrap> childs;
@@ -32,7 +33,8 @@ namespace Cvast {
             A_PRICING_MODEL = 9,
             A_CURRENCY = 10,
             A_MIMETYPE = 11,
-            A_XML = 12
+            A_XML = 12,
+            A_EVENT = 13
         };
 
         N* get () {
@@ -41,11 +43,8 @@ namespace Cvast {
 
         virtual void setValue () {
             if (std::get<1>(this->data) > 0) {
-                rapidxml::xml_node<> *childNode = this->node->first_node();
-                const rapidxml::node_type type = childNode->type();
-
                 if (std::get<1>(this->data) == A_XML)
-                    this->setData(std::get<1>(this->data), std::get<3>(this->data), childNode);
+                    this->setData(std::get<1>(this->data), std::get<3>(this->data), this->node);
                 else
                     this->setData(std::get<1>(this->data), std::get<3>(this->data), this->nd.value);
             }
@@ -64,7 +63,7 @@ namespace Cvast {
             }
         }
 
-        virtual void createChildren () {
+        virtual void createChildren (Holder& holder) {
             if (this->childs.size()) {
                 rapidxml::xml_node<> *sibling = this->node->first_node();
 
@@ -74,7 +73,7 @@ namespace Cvast {
 
                     if (this->isChild(name)) {
                         string path = this->path + "/" + this->childs[name].path;
-                        this->childs[name].childFn(path, sibling);
+                        this->childs[name].childFn(path, sibling, holder);
                         this->childs[name].exists = true;
                     } else {
                         this->nodeErr(sibling->name(), this->node->name());
@@ -92,14 +91,13 @@ namespace Cvast {
             }
         }
 
-        virtual void registerNode () {
-            size_t hs = holder.holders.size() - 1;
+        virtual void registerNode (Holder& holder) {
             N* d = dynamic_cast<N*>(this);
             function<N*()> ptr = std::bind(&N::get, *d);
             GenericNode<N> gen(ptr);
 
-            holder.holders[hs].paths.insert(make_pair(this->path, make_shared<GenericNode<N>>(gen)));
-            holder.holders[hs].dataPaths.insert(make_pair(this->path, this->nd));
+            holder.paths.insert(make_pair(this->path, make_shared<GenericNode<N>>(gen)));
+            holder.dataPaths.insert(make_pair(this->path, this->nd));
         };
 
         virtual void onCreation () {}
@@ -133,38 +131,44 @@ namespace Cvast {
                 }
                 case A_URL: {
                     URL *c = (URL *) o;
-                    URL url(v);
+                    URL url(v, *this->isPermissive);
                     *c = url;
                     break;
                 }
                 case A_DATE: {
                     DATE *c = (DATE *) o;
-                    DATE date(v);
+                    DATE date(v, *this->isPermissive);
                     *c = date;
                     break;
                 }
                 case A_TIME: {
                     TIME *c = (TIME *) o;
-                    TIME time(v);
+                    TIME time(v, *this->isPermissive);
                     *c = time;
                     break;
                 }
                 case A_PRICING_MODEL: {
                     PRICING_MODEL *c = (PRICING_MODEL *) o;
-                    PRICING_MODEL pm(v);
+                    PRICING_MODEL pm(v, *this->isPermissive);
                     *c = pm;
                     break;
                 }
                 case A_CURRENCY: {
                     CURRENCY *c = (CURRENCY *) o;
-                    CURRENCY currency(v);
+                    CURRENCY currency(v, *this->isPermissive);
                     *c = currency;
                     break;
                 }
                 case A_MIMETYPE: {
                     MIMETYPE *c = (MIMETYPE *) o;
-                    MIMETYPE mime(v);
+                    MIMETYPE mime(v, *this->isPermissive);
                     *c = mime;
+                    break;
+                }
+                case A_EVENT: {
+                    EVENT *c = (EVENT *) o;
+                    EVENT evt(v, *this->isPermissive);
+                    *c = evt;
                     break;
                 }
             }
@@ -174,6 +178,7 @@ namespace Cvast {
             XML *c = (XML *) o;
             XML xml(v);
             *c = xml;
+            this->nd.setValue(xml.value);
         }
 
         bool isChild (const string& name) {
@@ -203,14 +208,14 @@ namespace Cvast {
         }
 
         void err (int errCode, const string& errWhat) {
-            size_t hs = holder.holders.size() - 1;
-            ErrorsHandler::err(errCode, errWhat, holder.holders[hs].isPermissive);
+            ErrorsHandler::err(errCode, errWhat, *this->isPermissive);
         }
 
     public:
         VB (string val = "", int type = 0, bool required = false, void* ptr = NULL) : data(val, type, required, ptr) {}
 
-        virtual void init(rapidxml::xml_node<> *node, string path) {
+        virtual void init(rapidxml::xml_node<> *node, string path, Holder& holder) {
+            this->isPermissive = &(holder.isPermissive);
             const rapidxml::node_type t = node->type();
 
             if (rapidxml::node_element == t) {
@@ -230,10 +235,10 @@ namespace Cvast {
 
                 this->setValue();
                 this->setAttributes();
-                this->createChildren();
+                this->createChildren(holder);
                 this->checkRequirements();
                 this->onCreation();
-                this->registerNode();
+                this->registerNode(holder);
             }
         }
     };

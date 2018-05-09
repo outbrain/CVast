@@ -12,11 +12,11 @@ namespace Cvast {
 
         struct CompanionAds: VB<CompanionAds> {
             CompanionAdsAttrs attrs;
-            vector<Companion> companions;
+            vector<Companion> companion;
 
             CompanionAds () {
                 {
-                    NodeWrapper<Companion, vector<Companion>> wrapper("companions", true, false, this->companions);
+                    NodeWrapper<Companion, vector<Companion>> wrapper("companion", true, false, this->companion);
                     this->childs.insert(make_pair("COMPANION", wrapper));
                 }
 

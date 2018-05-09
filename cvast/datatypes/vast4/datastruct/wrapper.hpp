@@ -22,19 +22,19 @@ namespace Cvast {
 
         struct Wrapper: VB<Wrapper> {
             WrapperAttrs attrs;
-            vector<Impression> impressions;
+            vector<Impression> impression;
             vector<VastAdTagUri> vastAdTagUri;
             vector<AdSystem> adSystem;
             vector<Pricing> pricing;
-            vector<Error> errors;
+            vector<Error> error;
             vector<ViewableImpression> viewableImpression;
-            vector<AdVerifications> adVerifications;
-            vector<Extensions> extensions;
+            vector<AdVerifications> adVerification;
+            vector<Extensions> extension;
             vector<Creatives> creatives;
 
             Wrapper () {
                 {
-                    NodeWrapper<Impression, vector<Impression>> wrapper("impressions", true, true, this->impressions);
+                    NodeWrapper<Impression, vector<Impression>> wrapper("impression", true, true, this->impression);
                     this->childs.insert(make_pair("IMPRESSION", wrapper));
                 }
 
@@ -44,7 +44,7 @@ namespace Cvast {
                 }
 
                 {
-                    NodeWrapper<AdSystem, vector<AdSystem>> wrapper("adSystem", false, true, this->adSystem);
+                    NodeWrapper<AdSystem, vector<AdSystem>> wrapper("adSystem", false, false, this->adSystem);
                     this->childs.insert(make_pair("ADSYSTEM", wrapper));
                 }
 
@@ -54,7 +54,7 @@ namespace Cvast {
                 }
 
                 {
-                    NodeWrapper<Error, vector<Error>> wrapper("errors", true, false, this->errors);
+                    NodeWrapper<Error, vector<Error>> wrapper("error", true, false, this->error);
                     this->childs.insert(make_pair("ERROR", wrapper));
                 }
 
@@ -64,12 +64,12 @@ namespace Cvast {
                 }
 
                 {
-                    NodeWrapper<AdVerifications, vector<AdVerifications>> wrapper("adVerifications", false, false, this->adVerifications);
+                    NodeWrapper<AdVerifications, vector<AdVerifications>> wrapper("adVerification", false, false, this->adVerification);
                     this->childs.insert(make_pair("ADVERIFICATIONS", wrapper));
                 }
 
                 {
-                    NodeWrapper<Extensions, vector<Extensions>> wrapper("extensions", false, false, this->extensions);
+                    NodeWrapper<Extensions, vector<Extensions>> wrapper("extension", false, false, this->extension);
                     this->childs.insert(make_pair("EXTENSIONS", wrapper));
                 }
 

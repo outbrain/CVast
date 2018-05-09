@@ -1,56 +1,82 @@
 
-#define CATCH_CONFIG_MAIN
-
 #include <string>
 #include <iostream>
-#include "../catch.hpp"
-#include "../../cvast/cvast_v4.hpp"
-//#include "values.h"
-//#include "requirements.h"
+#include <fstream>
+#include <vector>
+#include <dirent.h>
+#include "tests.h"
+#include "values.h"
+#include "requirements.h"
 
-using namespace std;
+Tests::Tests (const string& dir) : resourcesDir(dir) {
+    this->startChrono();
 
-struct Initializer {
-private:
-    string content = "";
+    int i = 1;
+    this->resourcesFiles = this->readDir(this->resourcesDir);
 
-public:
-    Initializer (const string& path) {
-        string line;
-        ifstream f(path);
+    for (auto& f : this->resourcesFiles) {
+        string content = this->readFile(this->resourcesDir + "/" + f);
 
-        if (f.is_open()) {
+        printf("\033[1;34mVALUES TESTS WITH FILE %s\033[0m\n", f.c_str());
+        Values values(content, i);
 
-            while (getline(f, line))
-                this->content += line;
+        printf("\033[1;34mREQUIREMENTS TESTS WITH FILE %s\033[0m\n", f.c_str());
+        Requirements requirements(content, i);
 
-            f.close();
-        }
+        i++;
     }
 
-    string getContent () {
-        return this->content;
-    }
-};
-
-//Initializer init("resources/vast_1.xml");
-//Cvast::Cvast_v4 cvast(init.getContent(), true, true);
-
-Initializer init2("resources/vast_2.xml");
-Cvast::Cvast_v4 cvast2(init2.getContent(), true, true);
-
-int test () {
-    //Cvast::Vast4::Creative* vast = cvast.api<Cvast::Vast4::Creative>("vast/ads0/inLine/creatives/creative0").get();
-    Cvast::Vast4::Creative* vast2 = cvast2.api<Cvast::Vast4::Creative>("vast/ads0/inLine/creatives/creative0").get();
-
-    //printf("%s\n", vast->attrs.id.c_str());
-    printf("%s\n", vast2->attrs.id.c_str());
-    //printf("%s\n", vast->attrs.id.c_str());
-
-    return 0;
+    this->endChrono();
+    this->printElapsedTime();
 }
 
-int t = test();
+vector<string> Tests::readDir (const string& path) {
+    DIR *dir;
+    struct dirent *ent;
+    vector<string> files;
 
-//Values values;
-//Requirements requirements;
+    if ((dir = opendir (this->resourcesDir.c_str())) != NULL) {
+        while ((ent = readdir (dir)) != NULL) {
+            string fn = ent->d_name;
+            if (fn.substr(fn.find_last_of('.') + 1) == "xml")
+                files.emplace_back(ent->d_name);
+        }
+
+        closedir (dir);
+    } else {
+        throw runtime_error("Cannot open directory " + path);
+    }
+
+    return files;
+}
+
+string Tests::readFile (const string& path) {
+    string line;
+    string content;
+    ifstream f(path);
+
+    if (f.is_open()) {
+
+        while (getline(f, line))
+            content += line;
+
+        f.close();
+    } else {
+        throw runtime_error("Cannot open file " + path);
+    }
+
+    return content;
+}
+
+void Tests::startChrono () {
+    this->startTime = chrono::system_clock::now();
+}
+
+void Tests::endChrono () {
+    this->endTime = chrono::system_clock::now();
+}
+
+void Tests::printElapsedTime () {
+    chrono::duration<double> elapsed = this->endTime - this->startTime;
+    printf("elapsed: %f sec.", elapsed.count());
+}

@@ -143,6 +143,7 @@ namespace Cvast {
                 std::array<int, 15> invalid_args = ErrorsHandler::invalids();
                 int *isInvalidChild = std::find(std::begin(invalid_args), std::end(invalid_args), errCode);
                 std::string err = codesTable.at(errCode);
+                err += " ";
                 err += errWhat;
 
                 if (isInvalidChild != std::end(invalid_args)) {
