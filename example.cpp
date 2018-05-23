@@ -1,15 +1,15 @@
 
 #include <iostream>
-#include "cvast/cvast_v4.hpp"
+#include "cvast/cvast.hpp"
 
 using namespace std;
 using namespace Cvast;
-using namespace Vast4;
+using namespace VideoTemplate;
 
 int main() {
     string xml = "<VAST version=\"4.0\"> <Ad id=\"1gl2d3\"> <InLine> <AdSystem version=\"1.2.3\">Example Ads</AdSystem> <AdTitle> <![CDATA[ Branded Avengers ]]> </AdTitle> <Impression> <![CDATA[ about:blank ]]> </Impression> <Creatives> <Creative> <UniversalAdId>abcdef</UniversalAdId> <Linear> <Duration>00:02:18</Duration> <MediaFiles> <MediaFile delivery=\"progressive\" width=\"320\" height=\"133\" type=\"application/javascript\" apiFramework=\"VPAID\"> <![CDATA[ https://cdn.example.com ]]> </MediaFile> </MediaFiles> </Linear> </Creative> </Creatives> </InLine> </Ad> </VAST>";
 
-    Cvast_v4 cvast(xml, true);
+    C_vast cvast(xml, true);
     Vast vast = cvast.getVast();
 
     printf("%f\n", vast.attrs.version);
@@ -27,6 +27,15 @@ int main() {
         printf("%s\n", adSystem->attrs.version.c_str());
         printf("%s\n", vast.ad[0].inLine[0].adSystem[0].attrs.version.c_str());
         printf("%s\n", cvast.api<>(path).attr("version")->c_str());
+    }
+
+    {
+        try {
+            string path = "vast/ad0/inLine/adSyste";
+            printf("%s\n", cvast.api<>(path).val()->c_str());
+        } catch (const std::exception& e) {
+            printf("%s", e.what());
+        }
     }
 
     return 0;

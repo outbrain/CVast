@@ -14,6 +14,7 @@ namespace Cvast {
     protected:
         string path;
         bool* isPermissive;
+        double* vastVersion;
         rapidxml::xml_node<> *node;
         NodeData nd;
         std::map<std::string, Wrap> childs;
@@ -40,6 +41,8 @@ namespace Cvast {
         N* get () {
             return dynamic_cast<N*>(this);
         }
+
+        virtual void setVersionRequirements () {}
 
         virtual void setValue () {
             if (std::get<1>(this->data) > 0) {
@@ -216,6 +219,7 @@ namespace Cvast {
 
         virtual void init(rapidxml::xml_node<> *node, string path, Holder& holder) {
             this->isPermissive = &(holder.isPermissive);
+            this->vastVersion = &(holder.vastVersion);
             const rapidxml::node_type t = node->type();
 
             if (rapidxml::node_element == t) {
@@ -233,6 +237,7 @@ namespace Cvast {
                 this->nd.setValue(v);
                 this->nd.setAttrs(VastUtils::getAttributesMap(this->node));
 
+                this->setVersionRequirements();
                 this->setValue();
                 this->setAttributes();
                 this->createChildren(holder);

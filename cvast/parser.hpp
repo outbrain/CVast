@@ -45,14 +45,32 @@ namespace Cvast {
                 try {
                     d.parse<rapidxml::parse_trim_whitespace>(&this->writableXML[0]);
                 } catch (const rapidxml::parse_error& e) {
-                    ErrorsHandler::err(ErrorsHandler::PARSING_ERR, e.what(), this->isPermissive);
+                    ErrorsHandler::err(ErrorsHandler::PARSING_ERR, e.what(), *this->isPermissive);
                 }
 
                 rapidxml::xml_node<> *node = d.first_node();
+                double version = this->getVastVersion(node);
 
-                this->vastNode.init(node, "vast", this->holder.holders[this->uid]);
-                this->parsed = true;
+                if (version > 0) {
+                    this->holder.holders[this->uid].vastVersion = version;
+                    this->vastNode.init(node, "vast", this->holder.holders[this->uid]);
+                    this->parsed = true;
+                } else {
+                    ErrorsHandler::err(ErrorsHandler::VAST_VER_NOT_SUPPORTED, "", false);
+                }
             }
+        }
+
+        double getVastVersion (rapidxml::xml_node<> *node) {
+            for(const rapidxml::xml_attribute<>* a = node->first_attribute(); a; a = a->next_attribute()) {
+                string name = a->name();
+                string value = a->value();
+
+                if (!strcmp(name.c_str(), "version"))
+                    return VastUtils::castStringToDbl(value);
+            }
+
+            return 0.0;
         }
 
     protected:

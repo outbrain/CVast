@@ -3,10 +3,10 @@
 
 using namespace std;
 using namespace Cvast;
-using namespace Vast4;
+using namespace VideoTemplate;
 
 Values::Values (const string& content, int idx) {
-    Cvast::Cvast_v4 cvast(content, true);
+    Cvast::C_vast cvast(content, true);
 
     switch (idx) {
         case 1: this->test_1(cvast); break;
@@ -16,7 +16,7 @@ Values::Values (const string& content, int idx) {
     this->printErrors();
 }
 
-void Values::test_1 (Cvast::Cvast_v4& cvast) {
+void Values::test_1 (Cvast::C_vast& cvast) {
     // Ad id attribute
     {
         string v = "415971838";
@@ -174,7 +174,7 @@ void Values::test_1 (Cvast::Cvast_v4& cvast) {
     }
 }
 
-void Values::test_2 (Cvast::Cvast_v4& cvast) {
+void Values::test_2 (Cvast::C_vast& cvast) {
     // Ad id attribute
     {
         string v = "417006538";

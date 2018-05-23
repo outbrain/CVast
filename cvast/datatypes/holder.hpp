@@ -12,6 +12,7 @@ namespace Cvast {
         std::map<std::string, std::shared_ptr<Generic>> paths;
         std::map<std::string, NodeData> dataPaths;
         bool isPermissive = false;
+        double vastVersion;
     };
 
     struct HolderInstance {

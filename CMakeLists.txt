@@ -12,52 +12,51 @@ add_executable(Cvast
         cvast/datatypes/dataTypes.hpp
         cvast/datatypes/vastBase.hpp
         cvast/datatypes/errorsHandler.hpp
-        cvast/datatypes/vast4/datastruct/vastAdTagUri.hpp
-        cvast/datatypes/vast4/datastruct/altText.hpp
-        cvast/datatypes/vast4/datastruct/companion.hpp
-        cvast/datatypes/vast4/datastruct/nonLinear.hpp
-        cvast/datatypes/vast4/datastruct/tracking.hpp
-        cvast/datatypes/vast4/datastruct/trackingEvents.hpp
-        cvast/datatypes/vast4/datastruct/verification.hpp
-        cvast/datatypes/vast4/datastruct/iconClicks.hpp
-        cvast/datatypes/vast4/datastruct/iconViewTracking.hpp
-        cvast/datatypes/vast4/datastruct/icon.hpp
-        cvast/datatypes/vast4/datastruct/resource.hpp
-        cvast/datatypes/vast4/datastruct/icons.hpp
-        cvast/datatypes/vast4/datastruct/videoClicks.hpp
-        cvast/datatypes/vast4/datastruct/mezzanine.hpp
-        cvast/datatypes/vast4/datastruct/interactiveCreativeFile.hpp
-        cvast/datatypes/vast4/datastruct/mediaFiles.hpp
-        cvast/datatypes/vast4/datastruct/adParameters.hpp
-        cvast/datatypes/vast4/datastruct/companionAds.hpp
-        cvast/datatypes/vast4/datastruct/nonLinearAds.hpp
-        cvast/datatypes/vast4/datastruct/creativeExtensions.hpp
-        cvast/datatypes/vast4/datastruct/universalAdId.hpp
-        cvast/datatypes/vast4/datastruct/creative.hpp
-        cvast/datatypes/vast4/datastruct/creatives.hpp
-        cvast/datatypes/vast4/datastruct/extensions.hpp
-        cvast/datatypes/vast4/datastruct/adVerifications.hpp
-        cvast/datatypes/vast4/datastruct/viewableImpression.hpp
-        cvast/datatypes/vast4/datastruct/survey.hpp
-        cvast/datatypes/vast4/datastruct/pricing.hpp
-        cvast/datatypes/vast4/datastruct/advertiser.hpp
-        cvast/datatypes/vast4/datastruct/description.hpp
-        cvast/datatypes/vast4/datastruct/category.hpp
-        cvast/datatypes/vast4/datastruct/impression.hpp
-        cvast/datatypes/vast4/datastruct/adTitle.hpp
-        cvast/datatypes/vast4/datastruct/adSystem.hpp
-        cvast/datatypes/vast4/datastruct/wrapper.hpp
-        cvast/datatypes/vast4/datastruct/inLine.hpp
-        cvast/datatypes/vast4/datastruct/ad.hpp
-        cvast/datatypes/vast4/datastruct/error.hpp
-        cvast/datatypes/vast4/datastruct/vast.hpp
-        cvast/datatypes/vast4/nodeTypes.hpp
-        cvast/datatypes/vast4/datastruct/linear.hpp
-        cvast/datatypes/vast4/datastruct/duration.hpp
+        cvast/datatypes/vast/datastruct/vastAdTagUri.hpp
+        cvast/datatypes/vast/datastruct/altText.hpp
+        cvast/datatypes/vast/datastruct/companion.hpp
+        cvast/datatypes/vast/datastruct/nonLinear.hpp
+        cvast/datatypes/vast/datastruct/tracking.hpp
+        cvast/datatypes/vast/datastruct/trackingEvents.hpp
+        cvast/datatypes/vast/datastruct/verification.hpp
+        cvast/datatypes/vast/datastruct/iconClicks.hpp
+        cvast/datatypes/vast/datastruct/iconViewTracking.hpp
+        cvast/datatypes/vast/datastruct/icon.hpp
+        cvast/datatypes/vast/datastruct/resource.hpp
+        cvast/datatypes/vast/datastruct/icons.hpp
+        cvast/datatypes/vast/datastruct/videoClicks.hpp
+        cvast/datatypes/vast/datastruct/mezzanine.hpp
+        cvast/datatypes/vast/datastruct/interactiveCreativeFile.hpp
+        cvast/datatypes/vast/datastruct/mediaFiles.hpp
+        cvast/datatypes/vast/datastruct/adParameters.hpp
+        cvast/datatypes/vast/datastruct/companionAds.hpp
+        cvast/datatypes/vast/datastruct/nonLinearAds.hpp
+        cvast/datatypes/vast/datastruct/creativeExtensions.hpp
+        cvast/datatypes/vast/datastruct/universalAdId.hpp
+        cvast/datatypes/vast/datastruct/creative.hpp
+        cvast/datatypes/vast/datastruct/creatives.hpp
+        cvast/datatypes/vast/datastruct/extensions.hpp
+        cvast/datatypes/vast/datastruct/adVerifications.hpp
+        cvast/datatypes/vast/datastruct/viewableImpression.hpp
+        cvast/datatypes/vast/datastruct/survey.hpp
+        cvast/datatypes/vast/datastruct/pricing.hpp
+        cvast/datatypes/vast/datastruct/advertiser.hpp
+        cvast/datatypes/vast/datastruct/description.hpp
+        cvast/datatypes/vast/datastruct/category.hpp
+        cvast/datatypes/vast/datastruct/impression.hpp
+        cvast/datatypes/vast/datastruct/adTitle.hpp
+        cvast/datatypes/vast/datastruct/adSystem.hpp
+        cvast/datatypes/vast/datastruct/wrapper.hpp
+        cvast/datatypes/vast/datastruct/inLine.hpp
+        cvast/datatypes/vast/datastruct/ad.hpp
+        cvast/datatypes/vast/datastruct/error.hpp
+        cvast/datatypes/vast/datastruct/vast.hpp
+        cvast/datatypes/vast/datastruct/linear.hpp
+        cvast/datatypes/vast/datastruct/duration.hpp
         cvast/utils/vastUtils.hpp
         cvast/parser.hpp
         cvast/api.hpp
-        cvast/cvast_v4.hpp
+        cvast/cvast.hpp
         example.cpp)
 
 add_executable(Test

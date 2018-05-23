@@ -3,3 +3,5 @@
 .idea
 .DS_STORE
 */.DS_STORE
+/node_modules
+/build
