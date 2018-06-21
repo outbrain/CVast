@@ -18,7 +18,7 @@ public:
             this->cvast = make_shared<C_vast>(vastXML, isPermissive);
         } catch (const std::exception& e) {
             EM_ASM_({
-                console.error(UTF8ToString($0));
+                throw new Error(UTF8ToString($0));
             }, e.what());
         }
     }
@@ -29,7 +29,7 @@ public:
             res = *(this->cvast->api<>(path).attr(attrName));
         } catch (const std::invalid_argument& e) {
             EM_ASM_({
-                console.error(UTF8ToString($0));
+                throw new Error(UTF8ToString($0));
             }, e.what());
         }
 
@@ -43,7 +43,7 @@ public:
         } catch (const std::invalid_argument& e) {
             printf("%s", e.what());
             EM_ASM_({
-                console.error(UTF8ToString($0));
+                throw new Error(UTF8ToString($0));
             }, e.what());
         }
 

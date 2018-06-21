@@ -134,9 +134,9 @@ namespace Cvast {
         EVENT () {}
 
         EVENT (std::string evt, bool isPermissive = false) {
-            std::string events[24] = {
+            std::string events[25] = {
                     "mute", "unmute", "pause", "resume", "rewind", "skip", "playerexpand", "playercollapse", "start", "firstquartile", "midpoint", "thirdquartile", "complete", "acceptinvitationlinear",
-                    "timespentviewing", "otheradinteraction", "progress", "creativeview", "acceptinvitation", "adexpand", "adcollapse", "minimize", "close", "overlayviewduration"
+                    "timespentviewing", "otheradinteraction", "progress", "creativeview", "acceptinvitation", "adexpand", "adcollapse", "minimize", "close", "overlayviewduration", "fullscreen"
             };
 
             VastUtils::toLowerCase(evt);
